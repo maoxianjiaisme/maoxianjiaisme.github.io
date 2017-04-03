@@ -18,7 +18,7 @@
 <meta property="og:description" content="IIS6.0远程代码执行的漏洞是发生在WebDav开启情况下发生的，当IIS6.0开启这个服务可以存在缓存区域溢出。
 官方给出的exp：
 1234567891011121314151617import socket sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) sock.connect((&apos;192.168.5.128&apos;,88))">
-<meta property="og:updated_time" content="2017-04-03T11:33:03.165Z">
+<meta property="og:updated_time" content="2017-04-03T11:34:47.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IIS6.0远程代码执行漏洞浅析">
 <meta name="twitter:description" content="IIS6.0远程代码执行的漏洞是发生在WebDav开启情况下发生的，当IIS6.0开启这个服务可以存在缓存区域溢出。
@@ -191,7 +191,7 @@
 <p>总结：这个漏洞的总体利用过程</p>
 <p>检查服务器是否开启webdav服务  →  通过扩展协议propfind，向服务器发送一个缓冲区溢出代码和可控制的shellcode  →   然后服务器接受到这个包发生了缓冲区溢出，将我们的shellcode溢出到了进程中。</p>
 <p>那么利用这个漏洞，我们如果可以控制shllecode，是不是可以直接注入一个反弹shell的payload，或者说是一个远程木马，因为直接注入进程等于不用执行文件，绕过waf，等等，当然没有汇编基础还是不行的，所以只能慢慢学，总结完毕。</p>
-<p>附上一个大牛发出来可利用msf直接加载攻击的exp。<br>More info: <a href="http://pan.baidu.com/s/1jINZJ5k" target="_blank" rel="external">Server</a></p>
+<p>附上一个大牛发出来可利用msf直接加载攻击的exp。<br>MSF利用exp: <a href="http://pan.baidu.com/s/1jINZJ5k" target="_blank" rel="external">下载</a></p>
 
       
 
