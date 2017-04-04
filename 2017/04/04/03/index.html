@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>利用MySQL的写文件+远程下载脚本绕过云锁拿shell | 晚睡早起学习好！</title>
+  <title>利用MySQLROOT权限远程下载脚本绕过云锁拿shell | 晚睡早起学习好！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
 连接上，通过查看MySQL数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。
 换思路，利用MySQL写文件函数，写shel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用MySQL的写文件+远程下载脚本绕过云锁拿shell">
+<meta property="og:title" content="利用MySQLROOT权限远程下载脚本绕过云锁拿shell">
 <meta property="og:url" content="http://yoursite.com/2017/04/04/03/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
 <meta property="og:description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
 连接上，通过查看MySQL数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。
 换思路，利用MySQL写文件函数，写shel">
-<meta property="og:updated_time" content="2017-04-04T13:25:57.461Z">
+<meta property="og:updated_time" content="2017-04-04T14:18:09.950Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用MySQL的写文件+远程下载脚本绕过云锁拿shell">
+<meta name="twitter:title" content="利用MySQLROOT权限远程下载脚本绕过云锁拿shell">
 <meta name="twitter:description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
 连接上，通过查看MySQL数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。
 换思路，利用MySQL写文件函数，写shel">
@@ -167,7 +167,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      利用MySQL的写文件+远程下载脚本绕过云锁拿shell
+      利用MySQLROOT权限远程下载脚本绕过云锁拿shell
     </h1>
   
 
