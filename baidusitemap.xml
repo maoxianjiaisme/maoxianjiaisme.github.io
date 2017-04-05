@@ -2,18 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     
-    
   <url>
-    <loc>http://fjhack.me/2017/04/04/03/</loc>
-    <lastmod>2017-04-04T14:18:09.950Z</lastmod>
+    <loc>http://fjhack.me/2017/04/05/04/</loc>
+    <lastmod>2017-04-05T08:22:57.669Z</lastmod>
     <data>
         <display>
-        <title>利用MySQLROOT权限远程下载脚本绕过云锁拿shell</title>
-        <pubTime>2017-04-04T13:20:00.950Z</pubTime>
+        <title>一次针对非法站点的渗透</title>
+        <pubTime>2017-04-05T07:30:28.970Z</pubTime>
         
-        <tag>绕过Waf </tag>
-         
-        <tag>渗透思路 </tag>
+        <tag>-渗透笔记 </tag>
          
          
            
@@ -21,6 +18,26 @@
     </data>
     </url>
 
+    
+  <url>
+    <loc>http://fjhack.me/2017/04/04/03/</loc>
+    <lastmod>2017-04-05T07:50:09.896Z</lastmod>
+    <data>
+        <display>
+        <title>利用MySQLROOT权限远程下载脚本绕过云锁拿shell</title>
+        <pubTime>2017-04-04T13:20:00.950Z</pubTime>
+        
+        <tag>绕过Waf </tag>
+         
+        <tag>渗透笔记 </tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://fjhack.me/2017/04/01/01/</loc>
