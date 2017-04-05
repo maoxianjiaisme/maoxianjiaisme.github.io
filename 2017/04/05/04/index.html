@@ -13,7 +13,7 @@ ur：:http://www.xxxx.com/
 架构判断：php+阿帕奇+mysql+win/linux【大小写判断】
 cms指纹：ecshop商城的二次开发
 端口，旁站，C段等等
-详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可传递的参数， 猜了">
+详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可利用传递的参数，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次针对非法站点的渗透">
 <meta property="og:url" content="http://fjhack.me/2017/04/05/04/index.html">
@@ -23,12 +23,12 @@ ur：:http://www.xxxx.com/
 架构判断：php+阿帕奇+mysql+win/linux【大小写判断】
 cms指纹：ecshop商城的二次开发
 端口，旁站，C段等等
-详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可传递的参数， 猜了">
+详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可利用传递的参数，">
 <meta property="og:image" content="http://fjhack.me/img/2.png">
 <meta property="og:image" content="http://fjhack.me/img/3.png">
 <meta property="og:image" content="http://fjhack.me/img/4.png">
 <meta property="og:image" content="http://fjhack.me/img/1.png">
-<meta property="og:updated_time" content="2017-04-05T08:24:40.392Z">
+<meta property="og:updated_time" content="2017-04-05T08:41:42.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次针对非法站点的渗透">
 <meta name="twitter:description" content="算是朋友发过来的一个非法的基金操盘站，首先我们进行一些基本的信息判断收集。
@@ -36,7 +36,7 @@ ur：:http://www.xxxx.com/
 架构判断：php+阿帕奇+mysql+win/linux【大小写判断】
 cms指纹：ecshop商城的二次开发
 端口，旁站，C段等等
-详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可传递的参数， 猜了">
+详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可利用传递的参数，">
 <meta name="twitter:image" content="http://fjhack.me/img/2.png">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
@@ -198,8 +198,8 @@ cms指纹：ecshop商城的二次开发
 <p>架构判断：php+阿帕奇+mysql+win/linux【大小写判断】</p>
 <p>cms指纹：ecshop商城的二次开发</p>
 <p>端口，旁站，C段等等</p>
-<p>详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可传递的参数， 猜了几个比较常用的目录，没有发现什么，先上WVS扫一波吧，因为有会员账号，<br><a id="more"></a></p>
-<p>所以登录状态扫描的话，会比不登录扫描爬到的页面更多，当然，前提是服务器没有防扫描，不然WVS的扫描动静碰到waf就死。这个站碰巧没有waf，当然，仅仅是没有waf。</p>
+<p>详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可利用传递的参数， 猜了几个比较常用的目录，没有发现什么，先上WVS扫一波吧，因为有会员账号，<br><a id="more"></a></p>
+<p>所以登录状态扫描的话，会比不登录扫描爬到的页面更多，当然，前提是服务器没有防扫描，不然WVS的扫描动静碰到waf就死。这个站碰巧没有waf，当然，仅仅是没有waf，如果有waf的话只能利用其他的方法，比如说添加百度等这些友好的头部，waf对这些爬虫还是很友好的。</p>
 <p>打开WVS，新建一个任务，然后在让你打开保存的cookie登录文件的地方新建一个工程文件，登录我们的账户，然后保存工程文件，退出，这里不说具体，详情可以去看WVS中文使用手册。<br><img src="/img/2.png" alt="img"><br>看见红色高危，我就放心了，两个注入，一个XSS漏洞【估计是误报，XSS传递的参数都没有，事实证明是误报的】，测试漏洞，直接从SQL注入开始吧，看了一下WVS模拟的http包参数可以看到，这是一个基于HTTP头部Agent</p>
 <p>的注入，这种注入很少碰到，百度看了下文章，跟cookie注入和host主机头注入是差不多的，也是对于提交参数不审核，带入数据库进行查询而产生的，当然手工有文章可是想快点验证，所以利用sqlmap直接注入。<br>CODE：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">GET <span class="regexp">/home/</span>index.php HTTP/<span class="number">1.1</span></div><div class="line"><span class="string">Referer:</span> <span class="string">http:</span><span class="comment">//www.google.com/search?hl=en&amp;q=testing</span></div><div class="line">User-<span class="string">Agent:</span> <span class="keyword">if</span>(now()=sysdate(),sleep(<span class="number">0</span>),<span class="number">0</span>)<span class="comment">/*'XOR(if(now()=sysdate(),sleep(0),0))OR'"XOR(if(now()=sysdate(),sleep(0),0))OR"*/</span></div><div class="line">Client-<span class="string">IP:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></div><div class="line">X-Forwarded-<span class="string">For:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></div><div class="line">X-Forwarded-<span class="string">Host:</span> localhost</div><div class="line">Accept-<span class="string">Language:</span> en</div><div class="line"><span class="string">Via:</span> <span class="number">1.1</span> wa.www.test.com</div><div class="line"><span class="string">Origin:</span> <span class="string">http:</span><span class="comment">//www.test.com/</span></div><div class="line">X-Requested-<span class="string">With:</span> XMLHttpRequest</div><div class="line"><span class="string">Cookie:</span> real_ipd=<span class="number">1.180</span><span class="number">.212</span><span class="number">.49</span>; ECS_ID=eff3314f58e854862f4299b7cd5eba26b5cd1a30; ECS[username]=H74652211; _ga=GA1<span class="number">.2</span><span class="number">.1142116738</span><span class="number">.1481088459</span>; _gat=<span class="number">1</span></div><div class="line"><span class="string">Host:</span> www.xxxx.com</div><div class="line"><span class="string">Connection:</span> Keep-alive</div><div class="line">Accept-<span class="string">Encoding:</span> gzip,deflate</div><div class="line"><span class="string">Accept:</span> *<span class="comment">/*</span></div></pre></td></tr></table></figure>
@@ -208,7 +208,7 @@ cms指纹：ecshop商城的二次开发
 <p>然后打开sqlmap输入语句：</p>
 <p>sqlmap.py -r 1.txt –level 3    //这个等级三一般是用来检测头部注入<br><img src="/img/3.png" alt="img"></p>
 <p>回车跑，出来了，存在注入，那么应该稳了吧，谁知道事实没这么顺利，跑出注入以后的几种思路</p>
-<p>1.root权限，如果是root那么可以进行sql语句，读文件，和【有绝对路径】直接利用os写shell。</p>
+<p>1.root权限，如果是root那么可以进行sql语句，读文件，和【有绝对路径】直接利用sql写shell。</p>
 <p>2.普通权限，跑管理员的账号密码然后找后台地址，登录再进行尝试拿shell</p>
 <p>然而两种都行不通，具体说下吧，首先我们跑了下权限，确实root，按道理来说root离拿shell没多远了，首先尝试直接跑管理员的密码数据，跑表列这些就不说了，我们直接跑当前库。</p>
 <p>发现管理员的数据被保存在user_admin表下，跑出列内数据，MD5解密，发现两个都解不开，【最后上了服务器才发现hash密文是加盐的，也就是常说的双重加密】，换了几个国内外的MD5解密都解不开，看样子是运气不好。</p>
@@ -230,9 +230,9 @@ cms指纹：ecshop商城的二次开发
 <p>sqlmap.py -r 1.txt  –level 3 –os-shell  </p>
 <p>发现也写不进去，有大牛说是目录不允许写入，换了几个目录，包括upload目录，应该不是权限的问题，最后还是失败，这时候觉得有点问题了，执行不了SQL语句，写不了shell，破解不了管理员密码，那这个注入也没什么用了，</p>
 <p>还是返回思路，看了下WVS，也没发现什么可以利用的。</p>
-<p>最后抱着试试的心态读了一下数据库的用户密码和一些配置文件，因为是root权限，而且服务器开了1433端口，如果允许外连的话，不知是否有突破点。</p>
+<p>最后抱着试试的心态读了一下数据库的用户密码和一些配置文件，因为是root权限，而且服务器开了3306端口，如果允许外连的话，应该会有突破点。</p>
 <p>读出来了 root/root </p>
-<p>用工具尝试外连</p>
+<p>用工具尝试外连<br>Mysql默认关闭外连。</p>
 <p>失败。。。</p>
 <p>这时候快要放弃了，朋友发来一个页面，也就是前台的会员上传头像的地方，有上传点是否有上传漏洞呢，尝试上传，首先上传一张正常的图片，发现上传后，审查元素查看路径，发现可以访问，那么这个上传点是正常的没有坏。</p>
 <p>那么尝试直接上传脚本。这时候无语了，发现也上传上去了，审查元素，查看路径，进行访问，404！竟然访问不到？</p>
@@ -241,7 +241,7 @@ cms指纹：ecshop商城的二次开发
 <p>反复试了几次，大概判断是waf之类的在做鬼，把上传的图片文件内容替换成了一个免杀一句话，然后不通过审查元素查看路径看看，利用抓包路径访问，发现，成功上传shell，但是直接访问url是报错的，那么用菜刀尝试连接一下，成功getshell，拿到一句话权</p>
 <p>限之后，发现开始上传的图片，txt都在目录下，唯独php那些脚本不见了，难道是被杀了，只有上服务器一探究竟了。</p>
 <p>一句话的权限还是很大的，sys权限，跨磁盘也有增删改查权限，看了一下IP，是外网可以直接3389连接。直接提权，连接，连接之后发现原来是360主动防御在做鬼，难怪执行不了SQL语句和写入文件，却可以进行扫描【后面尝试</p>
-<p>写入文件发现360自动阻拦】，然后打开数据库，尝试增加一条数据，发现增加后的数据后台登录不了，最后发现原来cms利用了加盐的加密，难怪死活解不开，那么我们把加密值改为0，当然，如果你想解开管理员原有的密码，只能够解开他的加密算法，在进行MD5接密，最后成功添加，进入后台之。</p>
+<p>写入文件发现360自动阻拦】，然后打开数据库，尝试增加一条数据，发现增加后的数据后台登录不了，最后发现原来cms利用了加盐的加密，难怪死活解不开，那么我们把加密值改为0，添加一条未加盐的MD5密文，数据库会默认改为加盐值，当然，如果你想解开管理员原有的密码，只能够解开他的加密算法，在进行MD5接密，最后成功添加，进入后台之。</p>
 <p><img src="/img/1.png" alt="img"><br>渗透到此结束，写了一些思路也不全是我一个人的思路，有朋友帮忙，有些东西也没写出来，因为敏感，图片贴的比较少，因为怕人爆菊【查水表就不好了】，写这个笔记的原因也是为了以后没思路的时候看看，这次的渗透主要是想说明，两个问题。</p>
 <p>第一：思路要明确，要细心，不要放过任何一个可以利用的地方，渗透如果说你没有0day或者其他的技巧的话，你就需要比别人多一份细心。</p>
 <p>第二：不要习惯自己的方法，比如说审查元素查看上传后的地址，要习惯与抓包查看，要细心分析每一个地方。</p>
@@ -465,11 +465,7 @@ cms指纹：ecshop商城的二次开发
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">IIS6.0</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">代码执行漏洞</a>
+                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,7 +477,11 @@ cms指纹：ecshop商城的二次开发
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
+                <a href="javascript:void(0)" class="js-tag color2">IIS6.0</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">代码执行漏洞</a>
               </li>
             
             <div class="clearfix"></div>
