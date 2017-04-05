@@ -28,7 +28,7 @@ cms指纹：ecshop商城的二次开发
 <meta property="og:image" content="http://fjhack.me/img/3.png">
 <meta property="og:image" content="http://fjhack.me/img/4.png">
 <meta property="og:image" content="http://fjhack.me/img/1.png">
-<meta property="og:updated_time" content="2017-04-05T08:22:57.669Z">
+<meta property="og:updated_time" content="2017-04-05T08:24:40.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次针对非法站点的渗透">
 <meta name="twitter:description" content="算是朋友发过来的一个非法的基金操盘站，首先我们进行一些基本的信息判断收集。
@@ -198,9 +198,9 @@ cms指纹：ecshop商城的二次开发
 <p>架构判断：php+阿帕奇+mysql+win/linux【大小写判断】</p>
 <p>cms指纹：ecshop商城的二次开发</p>
 <p>端口，旁站，C段等等</p>
-<p>详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可传递的参数， 猜了几个比较常用的目录，没有发现什么，先上WVS扫一波吧，因为有会员账号，</p>
+<p>详细的信息就不列了，重点不在这里，这种站一般是要有前台的账号密码，当然，我也有。登录到前台大致看了下，简洁，url没有可传递的参数， 猜了几个比较常用的目录，没有发现什么，先上WVS扫一波吧，因为有会员账号，<br><a id="more"></a></p>
 <p>所以登录状态扫描的话，会比不登录扫描爬到的页面更多，当然，前提是服务器没有防扫描，不然WVS的扫描动静碰到waf就死。这个站碰巧没有waf，当然，仅仅是没有waf。</p>
-<p>打开WVS，新建一个任务，然后在让你打开保存的cookie登录文件的地方新建一个工程文件，登录我们的账户，然后保存工程文件，退出，这里不说具体，详情可以去看WVS中文使用手册。<br><img src="/img/2.png" alt="img"><br><a id="more"></a><br>看见红色高危，我就放心了，两个注入，一个XSS漏洞【估计是误报，XSS传递的参数都没有，事实证明是误报的】，测试漏洞，直接从SQL注入开始吧，看了一下WVS模拟的http包参数可以看到，这是一个基于HTTP头部Agent</p>
+<p>打开WVS，新建一个任务，然后在让你打开保存的cookie登录文件的地方新建一个工程文件，登录我们的账户，然后保存工程文件，退出，这里不说具体，详情可以去看WVS中文使用手册。<br><img src="/img/2.png" alt="img"><br>看见红色高危，我就放心了，两个注入，一个XSS漏洞【估计是误报，XSS传递的参数都没有，事实证明是误报的】，测试漏洞，直接从SQL注入开始吧，看了一下WVS模拟的http包参数可以看到，这是一个基于HTTP头部Agent</p>
 <p>的注入，这种注入很少碰到，百度看了下文章，跟cookie注入和host主机头注入是差不多的，也是对于提交参数不审核，带入数据库进行查询而产生的，当然手工有文章可是想快点验证，所以利用sqlmap直接注入。<br>CODE：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">GET <span class="regexp">/home/</span>index.php HTTP/<span class="number">1.1</span></div><div class="line"><span class="string">Referer:</span> <span class="string">http:</span><span class="comment">//www.google.com/search?hl=en&amp;q=testing</span></div><div class="line">User-<span class="string">Agent:</span> <span class="keyword">if</span>(now()=sysdate(),sleep(<span class="number">0</span>),<span class="number">0</span>)<span class="comment">/*'XOR(if(now()=sysdate(),sleep(0),0))OR'"XOR(if(now()=sysdate(),sleep(0),0))OR"*/</span></div><div class="line">Client-<span class="string">IP:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></div><div class="line">X-Forwarded-<span class="string">For:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></div><div class="line">X-Forwarded-<span class="string">Host:</span> localhost</div><div class="line">Accept-<span class="string">Language:</span> en</div><div class="line"><span class="string">Via:</span> <span class="number">1.1</span> wa.www.test.com</div><div class="line"><span class="string">Origin:</span> <span class="string">http:</span><span class="comment">//www.test.com/</span></div><div class="line">X-Requested-<span class="string">With:</span> XMLHttpRequest</div><div class="line"><span class="string">Cookie:</span> real_ipd=<span class="number">1.180</span><span class="number">.212</span><span class="number">.49</span>; ECS_ID=eff3314f58e854862f4299b7cd5eba26b5cd1a30; ECS[username]=H74652211; _ga=GA1<span class="number">.2</span><span class="number">.1142116738</span><span class="number">.1481088459</span>; _gat=<span class="number">1</span></div><div class="line"><span class="string">Host:</span> www.xxxx.com</div><div class="line"><span class="string">Connection:</span> Keep-alive</div><div class="line">Accept-<span class="string">Encoding:</span> gzip,deflate</div><div class="line"><span class="string">Accept:</span> *<span class="comment">/*</span></div></pre></td></tr></table></figure>
 <p>利用姿势：</p>
@@ -461,14 +461,6 @@ cms指纹：ecshop商城的二次开发
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">绕过Waf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">渗透思路</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前言</a>
               </li>
              
@@ -481,11 +473,15 @@ cms指纹：ecshop商城的二次开发
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">绕过Waf</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">渗透笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
               </li>
             
             <div class="clearfix"></div>
