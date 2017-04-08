@@ -154,6 +154,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-06" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/09/06/">python之路---最简单的爬虫</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/09/06/" class="archive-article-date">
+  	<time datetime="2017-04-08T16:46:33.997Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在一位编程大牛朋友【确实很厉害】的监督和帮助下，终于写了自己的第一个非常非常简单的python爬虫,我对编程这块无论是php，python，汇编等等，懂得只是一点点皮毛，可以算是门都没入，看过很多教程，例如廖雪峰和小甲鱼的python教程，也学了一个学期的php，但是除了写个循环判断，和字谜小游戏之外发现自己啥都不会，所以，励志一定要学好编程，用猪猪侠的话来说，不会编程是一件非常丢脸的事情，的确如此，发现自己的不足，就要去完善，毕竟自己会写程序是件很有成就感的事情，那么先从爬虫开始吧！</p>
+<p>：）</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>先定一个小目标，比如，先利用python爬下百度的首页文件！</p>
+<p>先附上代码：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*-coding:utf-8 -*-</span></div><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="attr">respone</span> = urllib2.urlopen(<span class="string">"http://wwww.baidu.com/index.html"</span>)</div><div class="line"><span class="attr">html</span> = respone.read()</div><div class="line">print(html)</div></pre></td></tr></table></figure>
+<h1 id="代码简单分析："><a href="#代码简单分析：" class="headerlink" title="代码简单分析："></a>代码简单分析：</h1><p>urllib2是python自带的一个库，它的功能是获取urlopen函数的形式提供一个非常简单的接口，还支持http/ftp/Gopher协议</p>
+<p>urlopen一般接收的三个参数，第一个是url，第二个是要传送的data数据，第三个则是超时设置<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">urlopen</span><span class="params">(url, data, timeout)</span></span></div></pre></td></tr></table></figure></p>
+<p>这里我们只要获取百度的首页，那么我们首先导入这个库，然后把 “urlopen”通过HTTP协议获取的值，赋给对象变量“respone”当我们利用urllib2库的时候，我们已经获取到了百度的首页文件内容，并且把获取到的内容赋值给了对象变量，可是如果我们直接打印这个变量查看内容是看不到百度首页文件的，直接打印输出变量的内容的话，会输出以下结果</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">addinfourl </span><span class="built_in">at</span> <span class="number">139728495260376</span> whose <span class="built_in">fp</span> = &lt;socket._fileobject object <span class="built_in">at</span> <span class="number">0x7f1513fb3ad0</span>&gt;&gt;</div></pre></td></tr></table></figure>
+<p>很明显，此时urlopen的返回值ret_picUrl，其实是一个Object，而不是我们想要的首页内容，所以，我们需要加上一个read()函数，并且重新赋值输出。得到的内容是最直接的html代码</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/IP0A%5B4P%25WN$STJ31X~%60%290%25K.png" alt=""></p>
+<p>到这里，我成功地利用爬虫【虽然很简单粗糙】爬到了第一个页面，但是这个确实是成功了！但是，获取一个页面实在没啥意思，在大牛的指导下，进一步对这个简单的不能在简单的爬虫进行了小小的升级。</p>
+<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>正则表达式用百度的原话来说：又称规则表达式。（英语：Regular Expression，在代码中常简写为regex、regexp或RE），计算机科学的一个概念。正则表通常被用来检索、替换那些符合某个模式(规则)的文本。</p>
+<p>对于一个这样的页面，如果我只想获取其中的一部分内容【比如标题，名称等等】，而不是整个爬下来，那么我们就需要在爬虫中添加正则表达式。</p>
+<p>虽然听过很多次，而且也绕过一些正则匹配的waf，但是第一次写正则表达式还是写了很久很久，最后才勉强达到预期百分之五十的效果，毕竟写程序太菜了，我写的是爬百度贴吧某一篇帖子的第一页下所有用户名的名称，随便找了篇帖子，审查元素查看了下名称的位置，然后构造代码。</p>
+<p>代码如下：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="built_in">import</span> re</div><div class="line"> </div><div class="line"><span class="attr">response</span> = urllib2.urlopen(<span class="string">"http://tieba.baidu.com/p/4886639100"</span>)</div><div class="line"><span class="attr">html</span> = response.read()</div><div class="line"><span class="attr">p</span> = re.compile('&lt;a <span class="attr">data-field=.*alog-group="p_author"</span> <span class="attr">class="p_author_name</span> j_user_card<span class="string">" href=.*ie=utf-8.*fr.*=utf-8.*&lt;/a&gt;');</span></div><div class="line">result = p.findall(html)</div><div class="line">print(result)</div></pre></td></tr></table></figure></p>
+<h1 id="代码简单分析"><a href="#代码简单分析" class="headerlink" title="代码简单分析"></a>代码简单分析</h1><p>爬虫大体和上面的爬虫差不多，但是导入了一个re的库，利用这个库我们可以添加变量对象为“p”的正则表达式，匹配具体内容就是匹配我们利用urlopen获取到的页面中其中带有<a> data-field=.*alog-group=”p_author” …..</a>中的数据，然后利用findall()函数把规则应用到有页面信息的变量对象，全文匹配检索，最后输出检索出来的值。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>第一次写正则真的好迷！试了很多匹配规则，也许是自己的语法问题，虽然爬到了信息，但是死活达不到自己想要的效果。所以只能利用最简单的“.*”规则进行匹配，而且爬到的中文名还以ASCLl编码显示，对变量编码也没有研究过，写这篇文章的时候已经是半夜两点了所以没有继续再深究了。但是自己不会放弃会慢慢完善自己的的第一个爬虫！</p>
+<p>最后附上爬出的数据截图<br><img src="http://oo1re7zx4.bkt.clouddn.com/GVSH$KTS%5DMK%7D9ACMAX2T%5BTV.png" alt=""></p>
+<p>正则表达式语法表<br><img src="http://oo1re7zx4.bkt.clouddn.com/20130515113723855.png" alt=""><br><!-- UY BEGIN --></p>
+<p><div id="uyan_frame"></div></p>
+<p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">爬虫 Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/09/06/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-05" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -429,70 +512,10 @@
 
 
   
-    <article id="post-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/01/01/">诞生日---第一篇博文</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/01/01/" class="archive-article-date">
-  	<time datetime="2017-04-01T11:48:46.717Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Hello，Word！在自己的摸索下，HEXO的博客终于搭建起来了，开这个博客有很多原因，感觉如果不用博客德华都不好意思自己是搞IT得，开玩笑的，其实最重要还是只想让自己做个不浮躁的人，只有沉下心才能学到更多的东西，当然，不一定会有人关注，但是自己的小圈子内能够互相学习，就够了，很乐意结交更多的朋友，一起交流，而不是互相吹捧，因为那毫无意<br>义。每个人都是从小白做起，这个圈子里面似乎并没有尽头，当你接触久了就会发现，这原来是个无底洞，因为技术本来就是没有尽头的，虽然洞很深而且还有很多的坑，可是依然有那么多人坚持着，也许为了好奇，也许为了￥￥，或许就是为了图一时兴起的快感<br>
-        
-          <a class="article-more-a" href="/2017/04/01/01/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/01/01/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -584,18 +607,6 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kali 安卓木马</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">绕过Waf</a>
               </li>
              
@@ -604,11 +615,27 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">kali 安卓木马</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">爬虫 Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">IIS6.0</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">代码执行漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
               </li>
             
             <div class="clearfix"></div>
