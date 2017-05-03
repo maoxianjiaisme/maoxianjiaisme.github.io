@@ -3,14 +3,31 @@
 
     
   <url>
+    <loc>http://fjhack.me/2017/05/03/09/</loc>
+    <lastmod>2017-05-03T15:08:44.513Z</lastmod>
+    <data>
+        <display>
+        <title>Word漏洞msf复现与浅析</title>
+        <pubTime>2017-05-03T15:02:16.539Z</pubTime>
+        
+        <tag>kali CVE-2017-0199 </tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://fjhack.me/2017/04/16/08/</loc>
-    <lastmod>2017-04-22T13:31:36.057Z</lastmod>
+    <lastmod>2017-05-03T11:13:41.266Z</lastmod>
     <data>
         <display>
         <title>Windows漏洞实战，盲打女寝</title>
         <pubTime>2017-04-16T15:20:33.463Z</pubTime>
         
-        <tag>kali 0day </tag>
+        <tag>kali CVE-2017-0148 </tag>
          
          
            
