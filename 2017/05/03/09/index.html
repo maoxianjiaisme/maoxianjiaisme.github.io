@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/%5B%5BEO%7B115%7BUSRO1%253OU@Z01M.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/74W7L%60$%25QH%7BD9W8%7D3%287M8%253.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/AZ7_@BN4O%7B%7B0NN%25%28%5BO6$90X.png">
-<meta property="og:updated_time" content="2017-05-03T15:21:49.829Z">
+<meta property="og:updated_time" content="2017-05-03T19:28:43.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word漏洞msf复现与浅析">
 <meta name="twitter:description" content="前言漏洞编号：CVE-2017-0199
@@ -196,10 +196,10 @@
 <p>：）</p>
 <p>简单来说就是构造一个含有外部链接文件的wrod文档，然后发给受害者，当受害者打开这个word的时候，会自动下载第三方链接的文件内容并执。</p>
 <p>poc：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">a=<span class="keyword">new</span> ActiveXObject(<span class="string">"WScript.Shell"</span>);</div><div class="line">a.run(<span class="string">'%windir%\\System32\\cmd.exe /c calc.exe'</span>, <span class="number">0</span>);<span class="built_in">window</span>.close();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>这是网上流传比较广的一个poc，分析发现是一段VBS的脚本，其功能就是在计算机上调用shell打开calc.exe这个计算器。把这段代码写入到一个rtf文件中，并放在远程web服务器上，前提是服务器开启webdav，kali下自带阿帕奇服务，然后在word的插入对象中，把刚刚的rtf文件添加进对象，因为Office通过 URL moniker来发送远程的请求，所以，它会自动去下载那个RTF文件，而这个文件包含的是一个VBS的脚本，URLmoniker会通过content-type文件扩展把这个文件识别为HTA文件，然后系统中专门用来识别HAT文件的mashat.exe会自动匹配脚本数据，并且将它执行，那么那段VBS脚本也被执行了，但是需要手动去触发这个hta文件，利用winhex软件通过修改文件的十六进制代码，可以实现自启动<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">\o</span>bject<span class="symbol">\o</span>bjautlink<span class="symbol">\r</span>sltpict修改为<span class="symbol">\o</span>bject<span class="symbol">\o</span>bjautlink<span class="symbol">\o</span>bjupdate<span class="symbol">\r</span>sltpict</div></pre></td></tr></table></figure><br>这些是我看了一些大牛们写的资料后简单的个人理解，但是针对于这个漏洞，不仅仅是可以调用计算器那么简单，通过修改vbs代码，我们几乎可以干任何事情，有大神写出了用msf生成的word，打开即可返回一个shell。</p>
+<p>这是网上流传比较广的一个poc，分析发现是一段VBS的脚本，其功能就是在计算机上调用shell打开calc.exe这个计算器。把这段代码写入到一个rtf文件中，并放在远程web服务器上，前提是服务器开启webdav，kali下自带阿帕奇服务，然后在word的插入对象中，把刚刚的rtf文件添加进对象，因为Office通过 URL moniker来发送远程的请求，所以，它会自动去下载那个RTF文件，而这个文件包含的是一个VBS的脚本，URLmoniker会通过content-type文件扩展把这个文件识别为HTA文件，然后系统中专门用来识别HTA文件的mashat.exe会自动匹配脚本数据，并且将它执行，那么那段VBS脚本也被执行了，但是需要手动去触发这个hta文件，利用winhex软件通过修改文件的十六进制代码，可以实现自启动<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">\o</span>bject<span class="symbol">\o</span>bjautlink<span class="symbol">\r</span>sltpict修改为<span class="symbol">\o</span>bject<span class="symbol">\o</span>bjautlink<span class="symbol">\o</span>bjupdate<span class="symbol">\r</span>sltpict</div></pre></td></tr></table></figure><br>这些是我看了一些大牛们写的资料后简单的个人理解，但是针对于这个漏洞，不仅仅是可以调用计算器那么简单，通过修改vbs代码，我们几乎可以干任何事情，有大神写出了用msf生成的word，打开即可返回一个shell。</p>
 <p>URL moniker：（这是一个由系统生成的对象，可以利用该对象去另一个对象中获取数据）</p>
 <p>content-type：（Content-Type，内容类型，一般是指网页中存在的Content-Type，用于定义网络文件的类型和网页的编码，决定文件接收方将以什么形式、什么编码读取这个文件）</p>
-<p>HAT：（HTML应用程序）</p>
+<p>HTA：（HTML应用程序）</p>
 <hr>
 <h2 id="利用msf反弹shell"><a href="#利用msf反弹shell" class="headerlink" title="利用msf反弹shell"></a>利用msf反弹shell</h2><p>利用工具：kali下的msf，msf需要更新到最新版本，不然无法开启hta服务。</p>
 <p>我这边用的是ssh，因为另一台电脑装了kali最新版，所以直接开个ssh。</p>
@@ -217,7 +217,8 @@
 <h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>这个漏洞总体来说，杀伤力还是非常强的，唯一的不足是还没研究明白怎么打开后显示正常内容，晚点看大牛们的文章研究一下，研究出来的话会更新，谢谢各位大牛分享的文章知识，我也要好好努力！</p>
 <p>最近爆的漏洞挺多的，例如stur2-045-046，phpcms，snmp，wordpass。。。不知道是巧合还是特意的呢？：）</p>
 <p>用一句话总结：<br>打开这个word，你的电脑就是我的了。</p>
-<p>参考文章：<a href="https://baijiahao.baidu.com/po/feed/share?wfr=spider&amp;for=pc&amp;context=%7B%22sourceFrom%22%3A%22bjh%22%2C%22nid%22%3A%22news_3028699747011659098%22%7D" target="_blank" rel="external">https://baijiahao.baidu.com/po/feed/share?wfr=spider&amp;for=pc&amp;context=%7B%22sourceFrom%22%3A%22bjh%22%2C%22nid%22%3A%22news_3028699747011659098%22%7D</a><br>          <a href="http://www.360zhijia.com/360anquanke/190384.html" target="_blank" rel="external">http://www.360zhijia.com/360anquanke/190384.html</a><br>          <a href="http://www.tuicool.com/articles/JFvUZvU" target="_blank" rel="external">http://www.tuicool.com/articles/JFvUZvU</a><br><!-- UY BEGIN --></p>
+<p>参考文章：<a href="https://baijiahao.baidu.com/po/feed/share?wfr=spider&amp;for=pc&amp;context=%7B%22sourceFrom%22%3A%22bjh%22%2C%22nid%22%3A%22news_3028699747011659098%22%7D" target="_blank" rel="external">https://baijiahao.baidu.com/po/feed/share?wfr=spider&amp;for=pc&amp;context=%7B%22sourceFrom%22%3A%22bjh%22%2C%22nid%22%3A%22news_3028699747011659098%22%7D</a><br>          <a href="http://www.360zhijia.com/360anquanke/190384.html" target="_blank" rel="external">http://www.360zhijia.com/360anquanke/190384.html</a><br>          <a href="http://www.tuicool.com/articles/JFvUZvU" target="_blank" rel="external">http://www.tuicool.com/articles/JFvUZvU</a></p>
+<!-- UY BEGIN -->
 <p><div id="uyan_frame"></div></p>
 <p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
 
@@ -323,6 +324,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/05/07/10/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          友宝活动漏洞，免费喝饮料
+        
+      </div>
+    </a>
   
   
     <a href="/2017/04/16/08/" id="article-nav-older" class="article-nav-link-wrap">
@@ -480,6 +490,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">kali CVE-2017-0199</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ʵս ������</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">实战 好玩的</a>
               </li>
             
             <div class="clearfix"></div>
