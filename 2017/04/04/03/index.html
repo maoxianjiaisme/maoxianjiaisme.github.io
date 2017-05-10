@@ -18,7 +18,7 @@
 <meta property="og:description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
 连接上，通过查看MySQL数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。
 换思路，利用MySQL写文件函数，写shel">
-<meta property="og:updated_time" content="2017-04-05T07:50:09.896Z">
+<meta property="og:updated_time" content="2017-05-10T07:53:24.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用MySQLROOT权限远程下载脚本绕过云锁拿shell">
 <meta name="twitter:description" content="碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。
@@ -322,7 +322,25 @@
 
 
   
-    <div class="duoshuo"></div>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="03" data-title="利用MySQLROOT权限远程下载脚本绕过云锁拿shell" data-url="http://fjhack.me/2017/04/04/03/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
 
