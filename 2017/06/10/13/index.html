@@ -6,29 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://fjhack.me">
-  <title>记一次漫长的渗透【一】 | 晚睡早起学习好！</title>
+  <title>续失败后的卷土重来，社工重新夺权后台 | 晚睡早起学习好！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="还是上次的非法站
-IIS8.0+win2012+mssql
-上次失败的结果是什么权限都没有了【数据库权限，服务器权限，shell权限】，但是不甘心，对着扒下的源码和数据库，使劲鼓捣研究，虽然并不是很懂代码审计,但是皇天不负有心人，终于发现了突破口，为我重新获得了权限，虽然权限不是很大。
-突破口在数据库的短信接口数据中：">
+  <meta name="description" content="衔接上文链接：http://fjhack.me/2017/06/02/12/
+还是上次的非法站
+IIS8.0+win2012+mssql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一次漫长的渗透【一】">
+<meta property="og:title" content="续失败后的卷土重来，社工重新夺权后台">
 <meta property="og:url" content="http://fjhack.me/2017/06/10/13/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
-<meta property="og:description" content="还是上次的非法站
-IIS8.0+win2012+mssql
-上次失败的结果是什么权限都没有了【数据库权限，服务器权限，shell权限】，但是不甘心，对着扒下的源码和数据库，使劲鼓捣研究，虽然并不是很懂代码审计,但是皇天不负有心人，终于发现了突破口，为我重新获得了权限，虽然权限不是很大。
-突破口在数据库的短信接口数据中：">
+<meta property="og:description" content="衔接上文链接：http://fjhack.me/2017/06/02/12/
+还是上次的非法站
+IIS8.0+win2012+mssql">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/7899898.jpg">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/12312312.jpg">
-<meta property="og:updated_time" content="2017-06-10T08:52:12.468Z">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/1231231.jpg">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/Inked1231231_LI.jpg">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/%E9%98%BF%E8%90%A8%E5%BE%B7%E6%92%92.png">
+<meta property="og:updated_time" content="2017-06-10T11:20:16.745Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一次漫长的渗透【一】">
-<meta name="twitter:description" content="还是上次的非法站
-IIS8.0+win2012+mssql
-上次失败的结果是什么权限都没有了【数据库权限，服务器权限，shell权限】，但是不甘心，对着扒下的源码和数据库，使劲鼓捣研究，虽然并不是很懂代码审计,但是皇天不负有心人，终于发现了突破口，为我重新获得了权限，虽然权限不是很大。
-突破口在数据库的短信接口数据中：">
+<meta name="twitter:title" content="续失败后的卷土重来，社工重新夺权后台">
+<meta name="twitter:description" content="衔接上文链接：http://fjhack.me/2017/06/02/12/
+还是上次的非法站
+IIS8.0+win2012+mssql">
 <meta name="twitter:image" content="http://oo1re7zx4.bkt.clouddn.com/7899898.jpg">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
@@ -176,7 +176,7 @@ IIS8.0+win2012+mssql
         
   
     <h1 class="article-title" itemprop="name">
-      记一次漫长的渗透【一】
+      续失败后的卷土重来，社工重新夺权后台
     </h1>
   
 
@@ -190,10 +190,29 @@ IIS8.0+win2012+mssql
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
+<p>衔接上文链接：<a href="http://fjhack.me/2017/06/02/12/">http://fjhack.me/2017/06/02/12/</a></p>
 <p>还是上次的非法站</p>
-<p>IIS8.0+win2012+mssql</p>
-<p>上次失败的结果是什么权限都没有了【数据库权限，服务器权限，shell权限】，<br>但是不甘心，对着扒下的源码和数据库，使劲鼓捣研究，虽然并不是很懂代码审计,但是皇天不负有心人，终于发现了突破口，为我重新获得了权限，虽然权限不是很大。</p>
+<p>IIS8.0+win2012+mssql<br><a id="more"></a><br>上次失败的结果是什么权限都没有了【数据库权限，服务器权限，shell权限】，<br>但是不甘心，对着扒下的源码和数据库，使劲鼓捣研究，虽然并不是很懂代码审计,但是皇天不负有心人，终于发现了突破口，为我重新获得了权限，虽然权限不是很大。</p>
 <p>突破口在数据库的短信接口数据中：<br><img src="http://oo1re7zx4.bkt.clouddn.com/7899898.jpg" alt=""><br><img src="http://oo1re7zx4.bkt.clouddn.com/12312312.jpg" alt=""></p>
+<p>有了账户密码，和连接地址，按道理，连接过去登录就OK了，但是事情没有那么简单，连接过去是这个东西，一串数字，像是时间戳。</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/1231231.jpg" alt=""></p>
+<p>按照习惯去掉后缀url，跳转到了一个登陆的界面，利用上面的账号密码尝试登陆，但是登录发现出错，心想，不可能啊，用户密码和地址都没毛病啊，看了下报错信息，发现是登录地址出错。<br><img src="http://oo1re7zx4.bkt.clouddn.com/Inked1231231_LI.jpg" alt=""><br>难道是另一个地址登录？手动猜了一下url，还存在一个login的登录窗口，估计是管理员的登录窗口，但是界面布局都是一样的，不仔细看真看不出来</p>
+<p><a href="http://xxx.xxx.xxx.xxx/msg/login.jsp" target="_blank" rel="external">http://xxx.xxx.xxx.xxx/msg/login.jsp</a></p>
+<p>通过发现这个接口数据“创蓝营销平台”，拟定思路，尝试社工客服之</p>
+<p>因为聊天记录都已经找不到了，只能大概叙述下。</p>
+<p>百度这个“创蓝营销平台”，找到了这个平台的官网，官网首页有客服的联系窗口，直接打开询问<a href="http://xxx.xxx.xxx.xxx/msg/index.jsp这个平台属于你们吗？" target="_blank" rel="external">http://xxx.xxx.xxx.xxx/msg/index.jsp这个平台属于你们吗？</a></p>
+<p>客服说是的，那么好办，直接抛出问题：我是公司新到的广告推广，上一任同事走了给了个短信平台属于你们平台，给了我登录的账号密码，可是登录不上，请问是为什么呢？</p>
+<p>。。。。。</p>
+<p>这个平台的客服很热心，告诉我不是修改了密码的问题，说是什么缓存，只要清除一下就可以登陆，那就好，直接把账号发过去，请客服清除了缓存，登录成功之。</p>
+<p>客服真的好评，问题很少，很干脆：）</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/%E9%98%BF%E8%90%A8%E5%BE%B7%E6%92%92.png" alt=""></p>
+<p>登陆后发现，发现可以获取到管理员的账户密码，原来后台是通过短信获取的动态密码，admin也是如此，直接点击获取动态密码，在短信平台获取到动态密码，成功登录。</p>
+<p>看了看后台，真的没什么可以利用的地方，基本没有上传和可以任何getshell的地方，但是还是重新夺回了点权限，保住短信平台即可！剩下的还是算了吧，收集好证据资料，全部发给了朋友，剩下的事情我也做不了什么了。</p>
+<h2 id="—"><a href="#—" class="headerlink" title="—"></a>—</h2><p>总结：</p>
+<p>一句话：不要放弃，万一找到突破口了呢？</p>
+<!-- UY BEGIN -->
+<p><div id="uyan_frame"></div></p>
+<p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
 
       
 
@@ -300,7 +319,7 @@ IIS8.0+win2012+mssql
   
   
     <a href="/2017/06/02/12/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记一次漫长的渗透【一】</div>
+      <div class="article-nav-title">记一次漫长的渗透</div>
       <i class="icon-circle-right"></i>
     </a>
   
