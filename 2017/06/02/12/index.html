@@ -8,18 +8,10 @@
   <link rel="dns-prefetch" href="http://fjhack.me">
   <title>记一次漫长的渗透【一】 | 晚睡早起学习好！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目标站点：www.xxxx.cn
-类型：非法基金盘【类似于MMM】
-架构：IIS8.0+aspx+win2k12+mssql
-手动测试常见漏洞，没发现明面的漏洞，发现有上传点，利用burp抓包分析，上传会返回路径。">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="记一次漫长的渗透【一】">
 <meta property="og:url" content="http://fjhack.me/2017/06/02/12/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
-<meta property="og:description" content="目标站点：www.xxxx.cn
-类型：非法基金盘【类似于MMM】
-架构：IIS8.0+aspx+win2k12+mssql
-手动测试常见漏洞，没发现明面的漏洞，发现有上传点，利用burp抓包分析，上传会返回路径。">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/123213123.jpg">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/Inked57BBKSZUZD0@NB8NQZZ%606%60B_LI.jpg">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/U%7BY41NH%7DDA~KSHU_~B8%25%5BR1.png">
@@ -37,13 +29,9 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/InkedImaLI.jpg">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/mage_LI.jpg">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/88888.png">
-<meta property="og:updated_time" content="2017-06-02T15:50:32.630Z">
+<meta property="og:updated_time" content="2017-06-10T08:20:41.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次漫长的渗透【一】">
-<meta name="twitter:description" content="目标站点：www.xxxx.cn
-类型：非法基金盘【类似于MMM】
-架构：IIS8.0+aspx+win2k12+mssql
-手动测试常见漏洞，没发现明面的漏洞，发现有上传点，利用burp抓包分析，上传会返回路径。">
 <meta name="twitter:image" content="http://oo1re7zx4.bkt.clouddn.com/123213123.jpg">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
@@ -205,11 +193,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p><img src="http://oo1re7zx4.bkt.clouddn.com/123213123.jpg" alt=""></p>
-<p>目标站点：www.xxxx.cn</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/123213123.jpg" alt=""><br><a id="more"></a><br>目标站点：www.xxxx.cn</p>
 <p>类型：非法基金盘【类似于MMM】</p>
 <p>架构：IIS8.0+aspx+win2k12+mssql</p>
-<p>手动测试常见漏洞，没发现明面的漏洞，发现有上传点，利用burp抓包分析，上传会返回路径。<br><a id="more"></a><br>OK</p>
+<p>手动测试常见漏洞，没发现明面的漏洞，发现有上传点，利用burp抓包分析，上传会返回路径。<br>OK</p>
 <p>修改数据包中文件名后缀</p>
 <p>asp 状态:404<br>cer 状态:404<br>asa 状态:404<br>aspx 状态:200</p>
 <p>最后发现只有aspx可以成功上传，访问却发现404，按道理不应该会404服务器都给出路径了，随便写个内容为123的aspx脚本上传，发现可以访问并且解析。</p>
@@ -378,6 +365,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/06/10/13/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记一次漫长的渗透【一】
+        
+      </div>
+    </a>
   
   
     <a href="/2017/05/16/11/" id="article-nav-older" class="article-nav-link-wrap">
