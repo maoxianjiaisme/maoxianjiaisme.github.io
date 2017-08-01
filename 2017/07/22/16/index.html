@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/R6K3%5D52NTF%7DA%5B1%5B%29IGX%25%5BUC.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/34Q3%29%7D1LX6R15AZI%28O7%28%7D~5.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/17QMJDU3KA$289C5KG%7B656C.png">
-<meta property="og:updated_time" content="2017-08-01T06:03:11.115Z">
+<meta property="og:updated_time" content="2017-08-01T06:04:31.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WAF注入绕过--安全狗">
 <meta name="twitter:description" content="前言写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻
@@ -202,13 +202,17 @@
 <p>php+阿帕奇+win2003[本地虚拟机]+mysql</p>
 <p>因为虚拟机这样搭建比较方便，mysql+php碰到的也比较多，所以选择使用这个架构，但是不清楚在测试的时候，集成的环境会不会有其他bug之类的。</p>
 <p>PHP代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span></span></div><div class="line">$id=$_REQUEST[<span class="string">'id'</span>];</div><div class="line">$conn = mysql_connect(<span class="string">'127.0.0.1'</span>,<span class="string">'root'</span>,<span class="string">'root'</span>);</div><div class="line"><span class="keyword">if</span> ($conn) &#123;</div><div class="line">	<span class="keyword">echo</span> <span class="string">"ok!"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">mysql_select_db(<span class="string">'test'</span>,$conn);</div><div class="line"><span class="keyword">echo</span> $id.<span class="string">"&lt;br&gt;"</span>;</div><div class="line">$sql=<span class="string">"select * from user where id=$id"</span>;</div><div class="line"><span class="keyword">echo</span> $sql.<span class="string">"&lt;br&gt;"</span>;</div><div class="line">$result=mysql_query($sql);</div><div class="line"><span class="keyword">while</span>($row = mysql_fetch_array($result))&#123;</div><div class="line">	</div><div class="line">	<span class="keyword">echo</span> <span class="string">"用户ID："</span>.$row[<span class="string">'id'</span>].<span class="string">"&lt;br &gt;"</span>;</div><div class="line">	<span class="keyword">echo</span> <span class="string">"用户名："</span>.$row[<span class="string">'username'</span>].<span class="string">"&lt;br &gt;"</span>;</div><div class="line">	<span class="keyword">echo</span> <span class="string">"用户密码:"</span>.$row[<span class="string">'password'</span>].<span class="string">"&lt;br &gt;"</span>;</div><div class="line">&#125;</div><div class="line">mysql_close($conn);</div><div class="line"><span class="keyword">echo</span><span class="string">"&lt;hr &gt;"</span>;</div><div class="line"><span class="keyword">echo</span><span class="string">"你当前执行的sql语句为："</span>;</div><div class="line"><span class="keyword">echo</span><span class="string">"select * from user where id=$id"</span>;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
-<p><img src="http://oo1re7zx4.bkt.clouddn.com/G9JN25T~XZV0%29~H9%7DE8NXFE.png" alt=""><br>利用小迪教程里的php代码进行了一些修改，设置为request接受参数，这样方便检测POST和GET的区别。</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/G9JN25T~XZV0%29~H9%7DE8NXFE.png" alt=""></p>
+<p>利用小迪教程里的php代码进行了一些修改，设置为request接受参数，这样方便检测POST和GET的区别。</p>
 <p><img src="http://oo1re7zx4.bkt.clouddn.com/LR%5B2%5BCM8X0OP6CHEUUU25S3.png" alt=""><br><img src="http://oo1re7zx4.bkt.clouddn.com/%25%60E_AP8W60@CI%7D%29%60@Q6GJQT.png" alt=""></p>
 <p>安全狗的版本为阿帕奇V4.0正式版，http防护功能全部开启最高等级。</p>
 <p>从最简单的注入判断开始，一般的注入点显错型注入是最多的，利用的最多的就是 and，or，xor这种类型的布尔值判断，通过手工测试发现</p>
-<p>在GET下拦截了<br>and 1=1<br>and 1 like 1<br>or 1=1<br>or 1 like 1</p>
-<p>不拦截<br>‘单引号<br>xor 1=1<br>xor 1 like 1<br><img src="http://oo1re7zx4.bkt.clouddn.com/8Q%28_QN%256P%5B1PANCF%25B7@0VV.png" alt=""></p>
-<p>在POST下<br>and<br>or<br>xor</p>
+<p>在GET下拦截了</p>
+<p>and 1=1<br>and 1 like 1<br>or 1=1<br>or 1 like 1</p>
+<p>不拦截</p>
+<p>‘单引号<br>xor 1=1<br>xor 1 like 1<br><img src="http://oo1re7zx4.bkt.clouddn.com/8Q%28_QN%256P%5B1PANCF%25B7@0VV.png" alt=""></p>
+<p>在POST下</p>
+<p>and<br>or<br>xor</p>
 <p>均未被拦截，可以正常提交判断。</p>
 <p>继续测试</p>
 <p>order by </p>
@@ -242,7 +246,8 @@
 <p><img src="http://oo1re7zx4.bkt.clouddn.com/34Q3%29%7D1LX6R15AZI%28O7%28%7D~5.png" alt=""></p>
 <p>通过测试发现，利用原理个人理解就是，在阿帕奇容器中，当用户只有提交POST的数据在经过阿帕奇的二次解析后，把原本是特殊符号的字节正常传入数据库，执行sql语句。利用宽字节的原因就是为了避免在参数进入容器解析前被WAF的正则匹配到，毕竟大多的WAF都是基于正则匹配黑名单的原理。</p>
 <p>当 select from union 都进行宽字节转换的时候，还是没法正常，绕过，接地气在文章里面也说明了，当这三个语句同时出现并且被执行的时候，就会触发安全狗的正则，那么尝试是否可以进行内联注释呢？</p>
-<p>id=-1 /<em>!uюiяю</em>//<em>!こхlхуt</em>/1,group_concat(table_name),3,4,5/<em>!цRяэ</em>/information_schema.tables where table_schema=0x74657374<br><img src="http://oo1re7zx4.bkt.clouddn.com/17QMJDU3KA$289C5KG%7B656C.png" alt=""></p>
+<p>id=-1 /<em>!uюiяю</em>//<em>!こхlхуt</em>/1,group_concat(table_name),3,4,5/<em>!цRяэ</em>/information_schema.tables where table_schema=0x74657374</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/17QMJDU3KA$289C5KG%7B656C.png" alt=""></p>
 <p>用内联注释确实可以完全绕过POST下安全狗的正则，但是内联注释后会把宽字符的某些字节给注释，达不到最初的全部替换效果，比如 union中进行转码的 i = %69，在内联注释后会被注释。但是总体来说影响不大，既然宽字符能够正常在POST下解析，那么是否可以用来单纯替换那些被禁止的函数呢？比如大小写混编的函数，测试发现，user(),database()，单纯的把某个字母替换成宽字节一样也会被拦截，主要还是把select union from给过掉才行。</p>
 <p>小小总结一下POST下的绕过：<br>在POST接收参数下，union和select利用内联注释可以完全进行绕过安全狗的匹配，from不需要内联注释也可以绕过，说明安全狗匹配了union和select，利用宽字符加内联注释可以绕过union和select的组合，但是没办法绕过函数，利用注释，宽字符，URl编码替换函数，也不行，说明安全狗在post接参下匹配了危险函数和union，select的组合。</p>
 <p>一般的绕过手法总结：</p>
