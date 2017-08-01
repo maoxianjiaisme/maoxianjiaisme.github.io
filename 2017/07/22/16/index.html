@@ -16,6 +16,7 @@
 <meta property="og:site_name" content="晚睡早起学习好！">
 <meta property="og:description" content="前言写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻
 “连WAF都不会绕，都不好意思说自己是搞渗透的”">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/untitled.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/G9JN25T~XZV0%29~H9%7DE8NXFE.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/LR%5B2%5BCM8X0OP6CHEUUU25S3.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/%25%60E_AP8W60@CI%7D%29%60@Q6GJQT.png">
@@ -24,12 +25,12 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/R6K3%5D52NTF%7DA%5B1%5B%29IGX%25%5BUC.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/34Q3%29%7D1LX6R15AZI%28O7%28%7D~5.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/17QMJDU3KA$289C5KG%7B656C.png">
-<meta property="og:updated_time" content="2017-08-01T06:00:45.470Z">
+<meta property="og:updated_time" content="2017-08-01T06:03:11.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WAF注入绕过--安全狗">
 <meta name="twitter:description" content="前言写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻
 “连WAF都不会绕，都不好意思说自己是搞渗透的”">
-<meta name="twitter:image" content="http://oo1re7zx4.bkt.clouddn.com/G9JN25T~XZV0%29~H9%7DE8NXFE.png">
+<meta name="twitter:image" content="http://oo1re7zx4.bkt.clouddn.com/untitled.png">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
   
@@ -190,7 +191,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻</p>
-<p>“连WAF都不会绕，都不好意思说自己是搞渗透的”<br><a id="more"></a><br>碰巧那时候也和朋友一起在研究WAF的绕过，确实，WAF这个东西是很讨人嫌的，明明知道漏洞在哪，但是WAF总是把你和漏洞隔开，唯一的办法就是绕过它，所以自己寻找了一些前辈们写的针对于WAF绕过的文章进行研究，虽然很多姿势都已经失效了，而且还是有很多不懂得东西，但是前辈们提供的思路确实拓宽了自己的视野，最后还是研究出来了针对于安全狗的注入绕过，用接地气表哥的话来说“这就是水到渠成的问题”，只要去研究,总会成功，下面是个人在研究过程中的一点点总结，写的可能不是很好，主要提供思路，有不对的地方，请指出。</p>
+<p>“连WAF都不会绕，都不好意思说自己是搞渗透的”<br><img src="http://oo1re7zx4.bkt.clouddn.com/untitled.png" alt=""><br><a id="more"></a><br>碰巧那时候也和朋友一起在研究WAF的绕过，确实，WAF这个东西是很讨人嫌的，明明知道漏洞在哪，但是WAF总是把你和漏洞隔开，唯一的办法就是绕过它，所以自己寻找了一些前辈们写的针对于WAF绕过的文章进行研究，虽然很多姿势都已经失效了，而且还是有很多不懂得东西，但是前辈们提供的思路确实拓宽了自己的视野，最后还是研究出来了针对于安全狗的注入绕过，用接地气表哥的话来说“这就是水到渠成的问题”，只要去研究,总会成功，下面是个人在研究过程中的一点点总结，写的可能不是很好，主要提供思路，有不对的地方，请指出。</p>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>个人认为WAF分为三大类：</p>
 <p>一丶云端WAF：这种类型的WAF，相对来说还是比较多，通常是CDN包含的waf，当DNS解析时，用户请求的数据包会首先被云端的waf进行检测，检测完毕确认没有问题后再提交给真实主机，常见的几款云端waf有“加速乐”，“百度云”，“创宇云”，“安全宝”等等。</p>
 <p>二丶硬件WAF，ips/idsWAF：这类WAF的话，个人碰到的比较少，但是还是接触过比如“深信服”，“神州数码防火墙”，“华为防火墙”等等，因为这种类型的waf专门用于在硬件防护设备上，用户流量在进入到达路由进入主机之前会先将流量转入WAF设备进行流量清洗和拦截，然后在把数据包传输给主机，达到一种过滤的效果，如果发现危险数据，就会根据相应设置的策略进行丢弃或者阻拦处理。</p>
