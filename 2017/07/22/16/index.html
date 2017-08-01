@@ -6,18 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://fjhack.me">
-  <title>友宝活动漏洞，免费喝饮料 | 晚睡早起学习好！</title>
+  <title>WAF注入绕过--安全狗 | 晚睡早起学习好！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="正文今天朋友告诉我说友宝自动售货机与wopay有合作，基本各大高校都是使用这种自动售货机，简单就是买一个手机号，然后下载一个沃钱包的app，利用手机号登录APP，然后手机号里有一分钱，直接利用一分钱的余额进行支付，有人专门出售这种手机号，原价成本非常低，不到2￥，可购买的单件商品是6￥，也就是常说的“撸羊毛”，那么就是2￥买6￥的商品，这么好的事情当然得尝试一下：）">
+  <meta name="description" content="前言写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻
+“连WAF都不会绕，都不好意思说自己是搞渗透的”">
 <meta property="og:type" content="article">
-<meta property="og:title" content="友宝活动漏洞，免费喝饮料">
-<meta property="og:url" content="http://fjhack.me/2017/05/07/10/index.html">
+<meta property="og:title" content="WAF注入绕过--安全狗">
+<meta property="og:url" content="http://fjhack.me/2017/07/22/16/index.html">
 <meta property="og:site_name" content="晚睡早起学习好！">
-<meta property="og:description" content="正文今天朋友告诉我说友宝自动售货机与wopay有合作，基本各大高校都是使用这种自动售货机，简单就是买一个手机号，然后下载一个沃钱包的app，利用手机号登录APP，然后手机号里有一分钱，直接利用一分钱的余额进行支付，有人专门出售这种手机号，原价成本非常低，不到2￥，可购买的单件商品是6￥，也就是常说的“撸羊毛”，那么就是2￥买6￥的商品，这么好的事情当然得尝试一下：）">
-<meta property="og:updated_time" content="2017-05-07T15:16:49.076Z">
+<meta property="og:description" content="前言写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻
+“连WAF都不会绕，都不好意思说自己是搞渗透的”">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/G9JN25T~XZV0%29~H9%7DE8NXFE.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/LR%5B2%5BCM8X0OP6CHEUUU25S3.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/%25%60E_AP8W60@CI%7D%29%60@Q6GJQT.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/8Q%28_QN%256P%5B1PANCF%25B7@0VV.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/1GWV%5BE3%28@EZ%5B%5B0_8%5DO7%5DCER.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/R6K3%5D52NTF%7DA%5B1%5B%29IGX%25%5BUC.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/34Q3%29%7D1LX6R15AZI%28O7%28%7D~5.png">
+<meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/17QMJDU3KA$289C5KG%7B656C.png">
+<meta property="og:updated_time" content="2017-08-01T06:00:45.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="友宝活动漏洞，免费喝饮料">
-<meta name="twitter:description" content="正文今天朋友告诉我说友宝自动售货机与wopay有合作，基本各大高校都是使用这种自动售货机，简单就是买一个手机号，然后下载一个沃钱包的app，利用手机号登录APP，然后手机号里有一分钱，直接利用一分钱的余额进行支付，有人专门出售这种手机号，原价成本非常低，不到2￥，可购买的单件商品是6￥，也就是常说的“撸羊毛”，那么就是2￥买6￥的商品，这么好的事情当然得尝试一下：）">
+<meta name="twitter:title" content="WAF注入绕过--安全狗">
+<meta name="twitter:description" content="前言写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻
+“连WAF都不会绕，都不好意思说自己是搞渗透的”">
+<meta name="twitter:image" content="http://oo1re7zx4.bkt.clouddn.com/G9JN25T~XZV0%29~H9%7DE8NXFE.png">
   
     <link rel="alternative" href="/atom.xml" title="晚睡早起学习好！" type="application/atom+xml">
   
@@ -157,31 +169,99 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-10" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-16" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      友宝活动漏洞，免费喝饮料
+      WAF注入绕过--安全狗
     </h1>
   
 
         
-        <a href="/2017/05/07/10/" class="archive-article-date">
-  	<time datetime="2017-05-07T14:53:16.948Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-07</time>
+        <a href="/2017/07/22/16/" class="archive-article-date">
+  	<time datetime="2017-07-22T12:05:11.682Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>今天朋友告诉我说友宝自动售货机与wopay有合作，基本各大高校都是使用这种自动售货机，简单就是买一个手机号，然后下载一个沃钱包的app，利用手机号登录APP，<br>然后手机号里有一分钱，直接利用一分钱的余额进行支付，有人专门出售这种手机号，原价成本非常低，不到2￥，可购买的单件商品是6￥，也就是常说的“撸羊毛”，那么就是2￥买6￥的商品，这么好的事情当然得尝试一下<br>：）<br><a id="more"></a><br>于是找朋友弄了几个这样的手机号，测试发现，每台手机的购买次数只有两次，也就是说，一个手机只能登陆两个号购买，当然，通过刷机恢复出厂值，<br>或者修改框架等一些手段是可以实现一机多刷。具体太麻烦没有进行尝试，有兴趣的可以自己尝试。</p>
-<p>手机号：<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">17196527941</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxxx1111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxx111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></div><div class="line"></div><div class="line"><span class="comment">17196499747</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxxx1111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxx111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></div><div class="line"></div><div class="line"><span class="comment">17083244844</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxxx1111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxx111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></div><div class="line"></div><div class="line"><span class="comment">17196527437</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxxx1111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxx111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></div><div class="line"></div><div class="line"><span class="comment">17083247864</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxxx1111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxx111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></div><div class="line"></div><div class="line"><span class="comment">17185151541</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxxx1111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">xxx111</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></div></pre></td></tr></table></figure><br>小霸王刚刷的小米系统，经不起折腾：）</p>
-<p>重点来了，通过发现，所有手机账户的登录密码和支付密码都是一摸一样的，那么岂不是可以登陆到其他的账户？虽然这样成本已经非常低了，但是再低也是￥￥，尝试免费购买的想法，问了下朋友，朋友说这是现做的虚拟账户，应该不会有这样的问题。<br>然而心不死，手动猜了十几个账户，每台手机的登录都会有限制，发生登陆限制清除一下缓存数据就可以，发现成功登陆10个，5个账户是有余额的，把室友的手机全部借了过来，测试发现成功购买<br>虽然成功率有点低，但是终究还是成功了，虽然不知道是谁的账户，只能算倒霉了。</p>
-<p>那么更加淫荡的想法来了，如果抓到了app的登录包岂不是可以批量跑一波？因为不知道这样是不是合法的所以没有进行尝试，利用burp或者手机的抓包软件应该就可以完成，<br>思路也就是差不多的，懂的人自然可以搞定。炎热夏日，来一瓶可口的脉动岂不美滋滋？各位仁兄，只能帮你们到这里了，剩下的自己解决吧。没什么技术含量，只是觉得挺有意思。<br>友宝官方别找我，只能怪弱密码的错。</p>
-<p>总结一点，思路很重要：）<br><!-- UY BEGIN --></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>写这篇博文的是因为前段时间看了接地气表哥的一篇关于利用“宽字节”进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻</p>
+<p>“连WAF都不会绕，都不好意思说自己是搞渗透的”<br><a id="more"></a><br>碰巧那时候也和朋友一起在研究WAF的绕过，确实，WAF这个东西是很讨人嫌的，明明知道漏洞在哪，但是WAF总是把你和漏洞隔开，唯一的办法就是绕过它，所以自己寻找了一些前辈们写的针对于WAF绕过的文章进行研究，虽然很多姿势都已经失效了，而且还是有很多不懂得东西，但是前辈们提供的思路确实拓宽了自己的视野，最后还是研究出来了针对于安全狗的注入绕过，用接地气表哥的话来说“这就是水到渠成的问题”，只要去研究,总会成功，下面是个人在研究过程中的一点点总结，写的可能不是很好，主要提供思路，有不对的地方，请指出。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>个人认为WAF分为三大类：</p>
+<p>一丶云端WAF：这种类型的WAF，相对来说还是比较多，通常是CDN包含的waf，当DNS解析时，用户请求的数据包会首先被云端的waf进行检测，检测完毕确认没有问题后再提交给真实主机，常见的几款云端waf有“加速乐”，“百度云”，“创宇云”，“安全宝”等等。</p>
+<p>二丶硬件WAF，ips/idsWAF：这类WAF的话，个人碰到的比较少，但是还是接触过比如“深信服”，“神州数码防火墙”，“华为防火墙”等等，因为这种类型的waf专门用于在硬件防护设备上，用户流量在进入到达路由进入主机之前会先将流量转入WAF设备进行流量清洗和拦截，然后在把数据包传输给主机，达到一种过滤的效果，如果发现危险数据，就会根据相应设置的策略进行丢弃或者阻拦处理。</p>
+<p>三丶应用层WAF：这类WAF是碰到最多的但是个人感觉也是比较好绕过的一种，在主机上预装这种防护软件，监听所有进入主机的web流量是否非法，功能比较完善，常见的有“安全狗”，“云锁”，“护卫神”，“360主机卫士”，“D盾”等等。</p>
+<p>根据 先知社区从容大佬的研究，当WAF的Rule相似的时候，会互相干扰，做过那个电脑装杀五六个杀软开机蓝屏的实验的朋友都应该明白这些waf也是互相排斥的，所以有时候也可以利用这儿特性进行绕过，但是我个人安装的三款应用层WAF，“安全狗”，“云锁”，“360主机卫士”做测试的时候，暂时没有发现这类问题。</p>
+<p>因为个人碰到的最多的WAF是安全狗，所以针对安全狗的绕过如下。</p>
+<p>环境用的是phpstudy集成环境</p>
+<p>php+阿帕奇+win2003[本地虚拟机]+mysql</p>
+<p>因为虚拟机这样搭建比较方便，mysql+php碰到的也比较多，所以选择使用这个架构，但是不清楚在测试的时候，集成的环境会不会有其他bug之类的。</p>
+<p>PHP代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span></span></div><div class="line">$id=$_REQUEST[<span class="string">'id'</span>];</div><div class="line">$conn = mysql_connect(<span class="string">'127.0.0.1'</span>,<span class="string">'root'</span>,<span class="string">'root'</span>);</div><div class="line"><span class="keyword">if</span> ($conn) &#123;</div><div class="line">	<span class="keyword">echo</span> <span class="string">"ok!"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">mysql_select_db(<span class="string">'test'</span>,$conn);</div><div class="line"><span class="keyword">echo</span> $id.<span class="string">"&lt;br&gt;"</span>;</div><div class="line">$sql=<span class="string">"select * from user where id=$id"</span>;</div><div class="line"><span class="keyword">echo</span> $sql.<span class="string">"&lt;br&gt;"</span>;</div><div class="line">$result=mysql_query($sql);</div><div class="line"><span class="keyword">while</span>($row = mysql_fetch_array($result))&#123;</div><div class="line">	</div><div class="line">	<span class="keyword">echo</span> <span class="string">"用户ID："</span>.$row[<span class="string">'id'</span>].<span class="string">"&lt;br &gt;"</span>;</div><div class="line">	<span class="keyword">echo</span> <span class="string">"用户名："</span>.$row[<span class="string">'username'</span>].<span class="string">"&lt;br &gt;"</span>;</div><div class="line">	<span class="keyword">echo</span> <span class="string">"用户密码:"</span>.$row[<span class="string">'password'</span>].<span class="string">"&lt;br &gt;"</span>;</div><div class="line">&#125;</div><div class="line">mysql_close($conn);</div><div class="line"><span class="keyword">echo</span><span class="string">"&lt;hr &gt;"</span>;</div><div class="line"><span class="keyword">echo</span><span class="string">"你当前执行的sql语句为："</span>;</div><div class="line"><span class="keyword">echo</span><span class="string">"select * from user where id=$id"</span>;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/G9JN25T~XZV0%29~H9%7DE8NXFE.png" alt=""><br>利用小迪教程里的php代码进行了一些修改，设置为request接受参数，这样方便检测POST和GET的区别。</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/LR%5B2%5BCM8X0OP6CHEUUU25S3.png" alt=""><br><img src="http://oo1re7zx4.bkt.clouddn.com/%25%60E_AP8W60@CI%7D%29%60@Q6GJQT.png" alt=""></p>
+<p>安全狗的版本为阿帕奇V4.0正式版，http防护功能全部开启最高等级。</p>
+<p>从最简单的注入判断开始，一般的注入点显错型注入是最多的，利用的最多的就是 and，or，xor这种类型的布尔值判断，通过手工测试发现</p>
+<p>在GET下拦截了<br>and 1=1<br>and 1 like 1<br>or 1=1<br>or 1 like 1</p>
+<p>不拦截<br>‘单引号<br>xor 1=1<br>xor 1 like 1<br><img src="http://oo1re7zx4.bkt.clouddn.com/8Q%28_QN%256P%5B1PANCF%25B7@0VV.png" alt=""></p>
+<p>在POST下<br>and<br>or<br>xor</p>
+<p>均未被拦截，可以正常提交判断。</p>
+<p>继续测试</p>
+<p>order by </p>
+<p>猜长度在GET和POST下也都可以用。</p>
+<p>但是当爆显错位的时候，就开始出现拦截了。</p>
+<p>因为爆显错位的时候用到了 select 和union ，那么肯定是某个语句被安全狗的正则匹配上了，通过测试发现。</p>
+<p>单纯的提交select和union，from不会被拦截，当几个语句同时出现，就会被拦截。</p>
+<p>在GET下尝试</p>
+<p>大小写混编</p>
+<p>192.168.13.129/4/1.php?id=-1+UnIon+SELEct+1,2,3,4,5 –</p>
+<p>POST下可以利用大小写混编获取到显错位，但当进行查询user(),database()这些函数信息的时候会被拦截</p>
+<p>URL转码</p>
+<p>192.168.13.129/4/1.php?id=-1%2f%2a%21%75%6e%69%6f%6e%2a%2f%2f%2a%21%73%65%6c%65%63%74%2a%2f%31%2c%32%2c%33%2c%34%2c%35%20%2d%2d</p>
+<p>POST下利用大小写混编获取到显错位，进行select和union查询，但当进行查询user(),database()这些函数信息的时候会被拦截</p>
+<p>内联连接注释</p>
+<p>192.168.13.129/4/1.php?id=-1/<em>!union</em>//<em>!select</em>/1,2,3,4,5 –会被拦截</p>
+<p>POST下内联注释可以正常提交,部分函数也可以正常执行。<br><img src="http://oo1re7zx4.bkt.clouddn.com/1GWV%5BE3%28@EZ%5B%5B0_8%5DO7%5DCER.png" alt=""></p>
+<p>@@version_compile_os<br>@@datadir<br>这种带有@被拦截，说明安全狗的规则里面匹配了@，通过证实发现确实如此，单纯的在显错位加入@，直接被拦截，尝试各种编码，内联注释也没绕过，想到替换但是没找到能够替换@这个符号的值，因为对注入没有太大的影响所以没有深入去研究，继续在POST下进行尝试，发现通过简单的内联注释就可以完完全全的绕过安全狗的POST 匹配规则。</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/R6K3%5D52NTF%7DA%5B1%5B%29IGX%25%5BUC.png" alt=""></p>
+<p>关于内联注释的解释：</p>
+<p>/<em> ….  </em>/ 在大部分语言中都一样是注释。这个之中的语句是不被执行的。但MYSQL中 为了保持兼容，比如从mysqldump 导出的SQL语句能被其它数据库直接使用，它把一些特有的仅在MYSQL上的语句放在 /<em>! … </em>/ 中，这样这些语句如果在其它数据库中是不会被执行，但在MYSQL中它会执行。 </p>
+<p>那么内联注释的绕过方法只适用于MYSQL。。。。XD</p>
+<p>继续</p>
+<p>通过发现，在POST接受参数下，安全狗的匹配规则非常弱，但是还是没有突破在GET传参下的绕过。毕竟一般的网站都是接受GET的传参比较多，尝试了一些前辈的方法，参数污染，替换字符等等感觉都不行了，尝试使用接地气老哥的宽字节替换手法，看看是否可以绕过安全狗的匹配正则，反正黑盒绕过就是猜，万一找到了安全狗正则疏忽的地方呢？而且，确实接地气老哥这个思路很新颖，利用宽字节替换sql字符语句。</p>
+<p>宽字节 对照：</p>
+<p>union = uю%69яю这里把i不用宽字节 直接url编码 其他的字符都用对应的宽字节</p>
+<p>select = こхlх%уt //t不编码 其他的都宽字节 中间插上%</p>
+<p>from = цR%яэ //宽字节+%</p>
+<p>空格=%20=%ва //в是2的款字符 а是0的宽字符</p>
+<p>, = Ь //,号的宽字节</p>
+<p><img src="http://oo1re7zx4.bkt.clouddn.com/34Q3%29%7D1LX6R15AZI%28O7%28%7D~5.png" alt=""></p>
+<p>通过测试发现，利用原理个人理解就是，在阿帕奇容器中，当用户只有提交POST的数据在经过阿帕奇的二次解析后，把原本是特殊符号的字节正常传入数据库，执行sql语句。利用宽字节的原因就是为了避免在参数进入容器解析前被WAF的正则匹配到，毕竟大多的WAF都是基于正则匹配黑名单的原理。</p>
+<p>当 select from union 都进行宽字节转换的时候，还是没法正常，绕过，接地气在文章里面也说明了，当这三个语句同时出现并且被执行的时候，就会触发安全狗的正则，那么尝试是否可以进行内联注释呢？</p>
+<p>id=-1 /<em>!uюiяю</em>//<em>!こхlхуt</em>/1,group_concat(table_name),3,4,5/<em>!цRяэ</em>/information_schema.tables where table_schema=0x74657374<br><img src="http://oo1re7zx4.bkt.clouddn.com/17QMJDU3KA$289C5KG%7B656C.png" alt=""></p>
+<p>用内联注释确实可以完全绕过POST下安全狗的正则，但是内联注释后会把宽字符的某些字节给注释，达不到最初的全部替换效果，比如 union中进行转码的 i = %69，在内联注释后会被注释。但是总体来说影响不大，既然宽字符能够正常在POST下解析，那么是否可以用来单纯替换那些被禁止的函数呢？比如大小写混编的函数，测试发现，user(),database()，单纯的把某个字母替换成宽字节一样也会被拦截，主要还是把select union from给过掉才行。</p>
+<p>小小总结一下POST下的绕过：<br>在POST接收参数下，union和select利用内联注释可以完全进行绕过安全狗的匹配，from不需要内联注释也可以绕过，说明安全狗匹配了union和select，利用宽字符加内联注释可以绕过union和select的组合，但是没办法绕过函数，利用注释，宽字符，URl编码替换函数，也不行，说明安全狗在post接参下匹配了危险函数和union，select的组合。</p>
+<p>一般的绕过手法总结：</p>
+<p>注释[内联注释,数据库特性]</p>
+<p>编码转换[双重编码，URL编码等]</p>
+<p>替换关键字[替换宽字节，特殊符号,emoji等等]</p>
+<p>缓冲区域溢出[利用Mysql的底层溢出，WAF检测机制长度等]</p>
+<p>参数污染[构造多重提交参数]</p>
+<p>扰乱正则[尝试扰乱WAF的一些正则匹配]</p>
+<p>等等。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>虽然绕过waf有点眉目了，但是却达不到自己心中想要的效果，有点不甘心，继续百度前辈们的方法进行绕过，在百度的过程中，发现很多有意思的绕过姿势，比如说，利用emoji表情绕过，mysql溢出绕过，等等有意思的方法。虽然有些已经用不了了，但是自己确实拓宽了眼界，也给自己提供了思路，最后再换了思路的情况下成功的绕过了安全狗的GET参数注入，提示的话，不是从WAF的正则黑名单进行绕过，可以进行尝试扰乱它的正则。</p>
+<p>具体的绕过姿势恕我不能直接发出来，因为这种东西就像接地气说的，见光死，太多像乌云红老师一样的人了，如果有心研究的表哥，肯定能研究出玩完美的绕过方法，毕竟连我这个小白都搞定了，当然，我们也可以一起探讨研究，毕竟Blog写的太乱。</p>
+<p>：）</p>
+<p>虽然注入漏洞已经快杜绝了，但是说实话，安全狗确实是比较垃圾的WAF，POST下的正则匹配简直不忍直视，但是还是能防住一些不懂原理的脚本小子，而且在应用人群也是比较多的，绕完了安全狗就得继续绕过其他的WAF(，云锁，360主机卫士等，还有云端WAF肯定是趋势)，有了经验应该会比较好绕过一些，但是黑盒测试不就是看运气吗？</p>
+<p>最后借用表哥的一句话总结：连狗都过不了还好意思讲我是搞渗透的！</p>
+<p>参考文章：</p>
+<p><a href="https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=9423" target="_blank" rel="external">https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=9423</a></p>
+<p><a href="https://www.secpulse.com/archives/53328.html" target="_blank" rel="external">https://www.secpulse.com/archives/53328.html</a></p>
+<p><a href="http://www.freebuf.com/articles/web/36683.html" target="_blank" rel="external">http://www.freebuf.com/articles/web/36683.html</a></p>
+<!-- UY BEGIN -->
 <p><div id="uyan_frame"></div></p>
 <p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129863"></script><br><!-- UY END --></p>
 
@@ -218,7 +298,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">实战 好玩的</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WAF-bypass 绕过</a>
         		</li>
       		
 		</ul>
@@ -274,7 +354,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://fjhack.me/2017/05/07/10/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://fjhack.me/2017/07/22/16/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,18 +368,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/05/16/11/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Python之路---简单的网络安全答题小脚本
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/05/03/09/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Word漏洞msf复现与浅析</div>
+    <a href="/2017/06/30/15/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">记一次面试经历(评测中心)【下】</div>
       <i class="icon-circle-right"></i>
     </a>
   
