@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/R6K3%5D52NTF%7DA%5B1%5B%29IGX%25%5BUC.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/34Q3%29%7D1LX6R15AZI%28O7%28%7D~5.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/17QMJDU3KA$289C5KG%7B656C.png">
-<meta property="og:updated_time" content="2017-08-07T09:22:07.194Z">
+<meta property="og:updated_time" content="2017-08-07T09:23:11.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WAF注入绕过--安全狗">
 <meta name="twitter:description" content="前言写这篇博文的原因，是因为前段时间看了接地气表哥的一篇关于利用“宽字节”的姿势，进行绕过安全狗正则匹配的帖子，有一句话让我印象深刻
@@ -197,7 +197,7 @@
 <p>一丶云端WAF：这种类型的WAF，相对来说还是比较多，通常是CDN包含的waf，当DNS解析时，用户请求的数据包会首先被云端的waf进行检测，检测完毕确认没有问题后再提交给真实主机，常见的几款云端waf有“加速乐”，“百度云”，“创宇云”，“安全宝”等等。</p>
 <p>二丶硬件WAF，ips/idsWAF：这类WAF的话，个人碰到的比较少，但是还是接触过比如“深信服”，“神州数码防火墙”，“华为防火墙”等等，因为这种类型的waf专门用于在硬件防护设备上，用户流量在进入到达路由进入主机之前会先将流量转入WAF设备进行流量清洗和拦截，然后在把数据包传输给主机，达到一种过滤的效果，如果发现危险数据，就会根据相应设置的策略进行丢弃或者阻拦处理。</p>
 <p>三丶应用层WAF：这类WAF是碰到最多的但是个人感觉也是比较好绕过的一种，在主机上预装这种防护软件，监听所有进入主机的web流量是否非法，功能比较完善，常见的有“安全狗”，“云锁”，“护卫神”，“360主机卫士”，“D盾”等等。</p>
-<p>根据 先知社区从容大佬的研究，当WAF的Rule相似的时候，会互相干扰，做过那个电脑装杀五六个杀软开机蓝屏的实验的朋友都应该明白这些waf也是互相排斥的，所以有时候也可以利用这儿特性进行绕过，但是我个人安装的三款应用层WAF，“安全狗”，“云锁”，“360主机卫士”做测试的时候，暂时没有发现这类问题。</p>
+<p>根据 白帽先知社区’从容‘大佬的研究，当WAF的Rule相似的时候，会互相干扰，做过那个电脑装杀五六个杀软开机蓝屏的实验的朋友都应该明白这些waf也是互相排斥的，所以有时候也可以利用这儿特性进行绕过，但是我个人安装的三款应用层WAF，“安全狗”，“云锁”，“360主机卫士”做测试的时候，暂时没有发现这类问题。</p>
 <p>因为个人碰到的最多的WAF是安全狗，所以针对安全狗的绕过如下。</p>
 <p>环境用的是phpstudy集成环境</p>
 <p>php+阿帕奇+win2003[本地虚拟机]+mysql</p>
