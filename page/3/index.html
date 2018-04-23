@@ -158,6 +158,70 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-08" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/16/08/">Windows漏洞实战，盲打女寝</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/16/08/" class="archive-article-date">
+  	<time datetime="2017-04-16T15:20:33.463Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><p>kalilinux  监听机，或者装有msf和nmap的linux即可，桥接物理机网络<br>
+        
+          <a class="article-more-a" href="/2017/04/16/08/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">kali CVE-2017-0148</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/16/08/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-07" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -420,76 +484,6 @@
 
 
   
-    <article id="post-03" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/04/03/">利用MySQLROOT权限远程下载脚本绕过云锁拿shell</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/04/03/" class="archive-article-date">
-  	<time datetime="2017-04-04T13:20:00.950Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>碰到个阿里云盾+安全狗+云锁+thinkphp的站，其实也没什么思路，前台上传有JS的验证，后端还有白名单，只是运气好，扫出个备份文件，得到其数据库账户，连接之。</p>
-<p>连接上，通过查看MySQL<br>数据库下的user表，发现是root用户的权限和当前用户是一样的，那么就是root 了。<br>思路，找到后台账户密码，登录之，发现也没什么利用的，上传点和前台一样白名单。</p>
-<p>换思路，利用MySQL写文件函数，写shell进网站的目录，首先需要知道网站的绝对路径，利用thinkPHP的报错特性，爆出绝对路径。<br>
-        
-          <a class="article-more-a" href="/2017/04/04/03/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">绕过Waf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">渗透笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/04/03/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -600,15 +594,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">kali 安卓木马</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">IIS6.0</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">代码执行漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,15 +614,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kali 安卓木马</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">爬虫 Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kali CVE-2017-0148</a>
+                <a href="javascript:void(0)" class="js-tag color1">-渗透笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">python 小游戏</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -636,7 +630,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">python 小游戏</a>
+                <a href="javascript:void(0)" class="js-tag color4">kali CVE-2017-0148</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">经验</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -648,11 +646,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">经验</a>
+                <a href="javascript:void(0)" class="js-tag color4">WAF-bypass 绕过</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WAF-bypass 绕过</a>
+                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
             
             <div class="clearfix"></div>
